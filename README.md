@@ -4,8 +4,6 @@ Shanghai prototype building energy modeling materials for peer review of (submit
 
 **The hidden energy penalty of static building codes**
 
-[City-Building-Database-of-China/ArchetypeBuilding](https://github.com/City-Building-Database-of-China/ArchetypeBuilding)
-
 ## Online resources
 
 - **[National prototype building database](http://8.166.131.116/#/)** — Interactive web portal for simulation outputs from the national prototype building database (China Building Energy Model Database).
