@@ -6,6 +6,12 @@ Shanghai prototype building energy modeling materials for peer review of (submit
 
 [City-Building-Database-of-China/ArchetypeBuilding](https://github.com/City-Building-Database-of-China/ArchetypeBuilding)
 
+## Online resources
+
+- **[National prototype building database](http://8.166.131.116/#/)** — Interactive web portal for simulation outputs from the national prototype building database (China Building Energy Model Database).
+
+- **[Shanghai building heating EUI visualization](http://8.138.56.183:8090/webgl/examples/webgl/shanghaiHeating.html)** — WebGL map of Shanghai showing building-level heating energy use intensity (EUI, kWh) by building type.
+
 ## Contents
 
 This release covers **Shanghai only**: 113 simulation-ready IDFs, weather files, sample GIS, parameter workbooks, and `1_idf_epw_batch_runner.py`.
