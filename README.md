@@ -29,7 +29,7 @@ ready_idf/shang4hai3shi4/  +  input/EPW/Shang4hai3shi4/
 | `ready_idf/shang4hai3shi4/` | 113 simulation-ready `.idf` files |
 | `input/EPW/Shang4hai3shi4/` | 7 `.epw` weather files (see below) |
 | `input/GIS/Prototype/` | Sample footprint shapefile (`310000_Shang4hai3shi4.*`) |
-| `input/GIS/CityBuilding/` | Full-city GIS zip (`310000_shang4hai3shi4.zip`, reference only) |
+| `input/GIS/CityBuilding/` | Full-city GIS zip (`310000_shang4hai3shi4.zip`) and overview map (`Shang4hai3shi4.png`) |
 | `input/Setting/` | `Schedule.xlsx`, `Static.xlsx` |
 | `result/` | Local simulation outputs (do not commit) |
 
@@ -64,6 +64,14 @@ Key environment variables: `IDF_ROOT`, `EPW_DIR`, `EPW_STEM`, `OUT_ROOT`, `NUM_C
 ## Legal notice
 
 We are **prohibited** from distributing precise geospatial datasets under the *Surveying and Mapping Law of the People's Republic of China* and related regulations. Distributed GIS materials use stripped or adjusted coordinates.
+
+## Shanghai building GIS
+
+Overview map of **all building footprints in Shanghai** from the CityBuilding layer (`input/GIS/CityBuilding/310000_shang4hai3shi4.zip`). Coordinates in the public release are adjusted per the legal notice below.
+
+<p align="center">
+  <img src="input/GIS/CityBuilding/Shang4hai3shi4.png" alt="Shanghai city building GIS visualization" width="900"/>
+</p>
 
 ## City-wide scale-up (manuscript)
 
