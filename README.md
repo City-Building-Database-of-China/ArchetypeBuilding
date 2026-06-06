@@ -2,6 +2,8 @@
 
 Prototype building energy modeling workflow and replication materials for **Shanghai**, China.
 
+**Repository:** [City-Building-Database-of-China/ArchetypeBuilding](https://github.com/City-Building-Database-of-China/ArchetypeBuilding)
+
 ## Purpose
 
 The data and code in this repository support the **peer review** of the manuscript (submitted; journal **TBD**):
@@ -10,23 +12,30 @@ The data and code in this repository support the **peer review** of the manuscri
 
 They are provided so reviewers and editors can verify methods, reproduce key workflow steps, and inspect Shanghai-level inputs and outputs described in the paper.
 
-> **Scope.** This release covers **Shanghai only**. It includes prototype building GIS inputs, weather (EPW) files, and the core workflow scripts. Other cities from the broader China Building Energy Model Database are not included here.
+> **Scope.** This release covers **Shanghai only**. It includes a sample GIS footprint layer, simulation-ready IDF files, weather (EPW) files, building-parameter workbooks, and one batch simulation script. IDF post-processing and multi-city matching utilities are not required for the bundled ready-to-run models.
 
 ## Workflow overview
 
-Building models are produced and simulated through the following pipeline:
+The bundled IDFs are already **simulation-ready**. Reviewers only need to run the batch script:
 
 ```
-Shanghai GIS inputs  →  GIS2IDF  →  ready IDF  →  EnergyPlus simulation  →  results
+ready IDF  +  EPW  →  1_idf_epw_batch_runner.py  →  EnergyPlus results
 ```
 
-| Stage | Description |
-|-------|-------------|
-| **GIS inputs** | Prototype building footprints and attributes, local weather (EPW), and building-parameter settings. **Replication uses the Prototype sample layer** (see below). |
-| **GIS2IDF** | GIS data are turned into building EnergyPlus models (geometry and associated model setup). |
-| **Ready IDF** | Per-prototype IDF files prepared for simulation. |
-| **EnergyPlus simulation** | Batch runs using Shanghai weather file(s). |
-| **Results** | Simulation outputs for analysis and comparison with published figures. |
+| Stage | Location | Role |
+|-------|----------|------|
+| **Ready IDF** | `ready_idf/shang4hai3shi4/` | 113 archetype EnergyPlus models |
+| **Weather (EPW)** | `input/EPW/Shang4hai3shi4/` | Baseline and RCP scenario weather files |
+| **Batch simulation** | `1_idf_epw_batch_runner.py` | Match EPW, run EnergyPlus, write reports |
+| **Results** | `result/shang4hai3shi4/` | One output folder per simulated IDF *(created locally, not committed)* |
+
+Supporting data for GIS inspection and city-scale mapping described in the manuscript:
+
+| Data | Location | Role |
+|------|----------|------|
+| **Prototype GIS** | `input/GIS/Prototype/310000_Shang4hai3shi4.*` | Sample footprint shapefile |
+| **CityBuilding GIS** | `input/GIS/CityBuilding/310000_shang4hai3shi4.zip` | Full-city footprints *(reference only)* |
+| **Settings** | `input/Setting/` | `Schedule.xlsx`, `Static.xlsx` |
 
 ## Data availability and legal notice
 
@@ -34,118 +43,175 @@ Please note that we are **prohibited** from distributing or uploading the origin
 
 In the distributed materials, explicit longitude and latitude coordinates are stripped or adjusted. This repository provides a **sample spatial dataset** together with the core simulation scripts.
 
-Reviewers and future readers can run the code on this sample data to verify the logic and validity of the computational workflow without access to restricted full-resolution survey data.
+## Repository layout
 
-## Data in this repository
+```
+ArchetypeBuilding/
+├── 1_idf_epw_batch_runner.py      # batch EPW matching + EnergyPlus runs
+├── backup_idf_batch_processor.py  # optional IDF post-processing (not needed here)
+├── ready_idf/
+│   └── shang4hai3shi4/            # 113 simulation-ready .idf files
+├── input/
+│   ├── EPW/
+│   │   └── Shang4hai3shi4/        # 7 .epw files
+│   ├── GIS/
+│   │   ├── Prototype/
+│   │   │   └── 310000_Shang4hai3shi4.{shp,shx,dbf,prj,cpg}
+│   │   └── CityBuilding/
+│   │       └── 310000_shang4hai3shi4.zip
+│   └── Setting/
+│       ├── Schedule.xlsx
+│       └── Static.xlsx
+└── result/                          # local run outputs (do not commit)
+    ├── shang4hai3shi4/<idf_stem>/   # EnergyPlus outputs
+    └── reports/                     # Excel matching / run reports
+```
 
-| Category | Shanghai | Notes |
-|----------|----------|-------|
-| **GIS / prototype building data** | Included | Sample Prototype layer + optional full-city archive |
-| **Weather (EPW)** | Included | Baseline and climate-scenario files under `input/EPW/SHANGHAI/` |
-| **Workflow scripts** | Included | `1_GIS2IDF.py`, `2_BatchSimulation.py` |
-
-### GIS inputs: Prototype vs CityBuilding
-
-Two GIS products are provided under `input/GIS/`:
-
-| Folder | Role | Use with bundled scripts? |
-|--------|------|---------------------------|
-| **`Prototype/`** | Public-release **sample** building footprints (explicit lon/lat stripped or adjusted). Matches the default paths in `1_GIS2IDF.py`. | **Yes** — use this for replication and peer review. |
-| **`CityBuilding/`** | **Original full-city building GIS** from the study (all buildings in Shanghai). Supplied as a **ZIP archive** for reference only. | **No** — not used by the default workflow scripts. |
-
-**CityBuilding ZIP archive** (under `input/GIS/CityBuilding/`):
-
-| City | Archive |
-|------|---------|
-| Shanghai | `310000_shang4hai3shi4.zip` |
-
-The archive is **not password-protected**; you can extract it directly with any standard ZIP utility.
-
-It preserves the complete building layer used in the paper-scale analyses and is included for transparency and local inspection. **To run `1_GIS2IDF.py` and verify the computational workflow, point the script at shapefiles under `input/GIS/Prototype/`** (e.g. `310000SHANGHAISHI.shp`), not at the CityBuilding layers.
+> **Path names are case-sensitive on Linux/GitHub.** IDF inputs use `ready_idf/shang4hai3shi4/`; weather files use `input/EPW/Shang4hai3shi4/`.
 
 ### Weather (EPW)
 
-Shanghai weather files are under `input/EPW/SHANGHAI/`:
+All weather files are under `input/EPW/Shang4hai3shi4/`:
 
 | File | Description |
 |------|-------------|
-| `Shanghai_2020.epw` | Baseline weather used for default replication runs |
-| `SHANGHAISHI_RCP2.6_2040.epw` | RCP2.6 scenario, 2040 |
-| `SHANGHAISHI_RCP2.6_2060.epw` | RCP2.6 scenario, 2060 |
-| `SHANGHAISHI_RCP4.5_2040.epw` | RCP4.5 scenario, 2040 |
-| `SHANGHAISHI_RCP4.5_2060.epw` | RCP4.5 scenario, 2060 |
-| `SHANGHAISHI_RCP8.5_2040.epw` | RCP8.5 scenario, 2040 |
-| `SHANGHAISHI_RCP8.5_2060.epw` | RCP8.5 scenario, 2060 |
+| `Shanghai_2020.epw` | Baseline weather (**default**) |
+| `SHANGHAISHI_RCP2.6_2040.epw` | RCP2.6, 2040 |
+| `SHANGHAISHI_RCP2.6_2060.epw` | RCP2.6, 2060 |
+| `SHANGHAISHI_RCP4.5_2040.epw` | RCP4.5, 2040 |
+| `SHANGHAISHI_RCP4.5_2060.epw` | RCP4.5, 2060 |
+| `SHANGHAISHI_RCP8.5_2040.epw` | RCP8.5, 2040 |
+| `SHANGHAISHI_RCP8.5_2060.epw` | RCP8.5, 2060 |
 
-### Repository layout
+### IDF file naming
 
-| Path | Contents |
-|------|----------|
-| **`1_GIS2IDF.py`** | Generate ready IDF files from **Prototype** GIS and input settings (default: Shanghai). |
-| **`2_BatchSimulation.py`** | Run EnergyPlus in batch on ready IDF files (default: `demo/ready_idf/` → `demo/result/`). |
-| **`input/GIS/Prototype/`** | Sample Shanghai prototype building footprints. **Input for `1_GIS2IDF.py`.** |
-| **`input/GIS/CityBuilding/`** | Full-city Shanghai GIS packaged as `310000_shang4hai3shi4.zip`. |
-| **`input/EPW/SHANGHAI/`** | Shanghai weather files (baseline and RCP scenarios). |
-| **`input/Setting/`** | Non-geometry building parameters (`non_geomtry_data_all.xlsx`, `age_de/`). |
-| **`demo/`** | Self-contained **demo package** (sample IDFs + pre-run results); see below. |
-| **`ready_idf/`** | Full-city generated IDF files for Shanghai (`ready_idf/310000SHANGHAISHI/`). |
-| **`result/`** | Simulation output folders for full-city or other runs (not used for the bundled demo). |
-
-### Demo package (`demo/`)
-
-A small **end-to-end example** lives under a single top-level folder so reviewers can find inputs and outputs in one place:
+Archetype IDFs under `ready_idf/shang4hai3shi4/` follow:
 
 ```
-demo/
-├── ready_idf/          # pre-generated IDF files (inputs to simulation)
-│   ├── 310000SHANGHAISHI_1.idf
-│   ├── 310000SHANGHAISHI_2.idf
-│   └── 310000SHANGHAISHI_3.idf
-└── result/             # pre-run EnergyPlus outputs (one subfolder per building)
-    ├── 310000SHANGHAISHI_1/
-    ├── 310000SHANGHAISHI_2/
-    └── 310000SHANGHAISHI_3/
+shang4hai3shi4_<func_index>_<archetype>_<year>_S0.idf
 ```
 
-| Location | Contents |
-|----------|----------|
-| **`demo/ready_idf/`** | Three **pre-generated IDF** files for Shanghai prototype buildings, produced by the GIS2IDF workflow from `input/GIS/Prototype/`. |
-| **`demo/result/`** | **Pre-run EnergyPlus results** for the same three buildings. Each subfolder (e.g. `310000SHANGHAISHI_1/`) holds standard outputs such as tabular summaries (`.csv`, `Table.htm`), SQLite (`.sql`), and logs (`.err`, `.eio`). |
+Example: `shang4hai3shi4_4_8_1995_S0.idf`
 
-**How to use the demo**
+| Token | Meaning |
+|-------|---------|
+| `func_index` | Building function type (0–7) |
+| `archetype` | Archetype index within that function |
+| `year` | Construction / code vintage |
+| `S0` | Scenario tag |
 
-- **`2_BatchSimulation.py`** defaults to `demo/ready_idf/` → `demo/result/` (weather: `input/EPW/SHANGHAI/Shanghai_2020.epw`). Runtime stays short while exercising the batch script.
-- Open **`demo/result/`** immediately to inspect a successful run, or re-run the batch and compare with the bundled outputs.
-- Full-city ready IDFs are under `ready_idf/310000SHANGHAISHI/` when you need more than the three-building demo.
+## Quick start
 
-## Paths and local configuration
+### 1. Clone and install Python dependencies
 
-**Repository data paths (portable).** Neither script hard-codes your machine username, drive letter, or clone location. Both scripts set `base_dir` to the folder containing the `.py` file (`os.path.dirname(os.path.abspath(__file__))`), then build paths with `os.path.join(base_dir, "input", ...)`, `demo/`, `ready_idf/`, and `result/`. As long as you run the scripts from a normal clone of this repository, these folders resolve correctly on any OS.
+```bash
+git clone https://github.com/City-Building-Database-of-China/ArchetypeBuilding.git
+cd ArchetypeBuilding
+pip install eppy pandas openpyxl
+```
 
-**EnergyPlus install paths (machine-specific).** EnergyPlus itself is **not** shipped in this repo. `1_GIS2IDF.py` and `2_BatchSimulation.py` still use the **default Windows install layout** for version 23.1, for example `C:\EnergyPlusV23-1-0\Energy+.idd` and related files under `C:\EnergyPlusV{version}\`. If your installation is elsewhere—or you are on Linux or macOS—you must edit those EnergyPlus paths in the scripts (search for `EnergyPlusV` / `iddfile`) before running.
+Install **EnergyPlus 23.1** locally. EnergyPlus is **not** included in this repository.
 
-## Replication notes
+### 2. Set your EnergyPlus path
 
-1. Confirm inputs under `input/` (weather, settings). For GIS, use **`input/GIS/Prototype/`** only — do not point `1_GIS2IDF.py` at the CityBuilding ZIP or full-city layers. The default example uses `input/GIS/Prototype/310000SHANGHAISHI.shp`.
-2. Install **EnergyPlus 23.1** and point the EnergyPlus paths in both scripts to your local `Energy+.idd` and install folder (see **Paths and local configuration** above).
-3. Run **`1_GIS2IDF.py`** to produce IDFs under `ready_idf/` (default output folder: `ready_idf/310000SHANGHAISHI/`).
-4. Run **`2_BatchSimulation.py`** to simulate IDFs under `demo/ready_idf/` and write outputs to `demo/result/`. Pre-computed results are already under `demo/result/` for comparison.
-5. Compare outputs with the paper.
+Windows PowerShell:
 
-## Status
+```powershell
+$env:ENERGYPLUS_DIR = "C:\EnergyPlusV23-1-0"
+# or
+$env:IDD_FILE = "C:\EnergyPlusV23-1-0\Energy+.idd"
+```
 
-- Manuscript submitted; target journal **TBD**.
-- This repository provides Shanghai prototype GIS inputs, EPW weather files, workflow scripts, full-city ready IDFs, and a self-contained `demo/` package.
-- Additional cities and post-processing utilities may be released separately as the broader database is finalized.
+Linux / macOS example:
+
+```bash
+export ENERGYPLUS_DIR=/usr/local/EnergyPlus-23-1-0
+```
+
+### 3. Preview EPW–IDF matching (recommended)
+
+```powershell
+$env:CHECK_ONLY = "true"
+py 1_idf_epw_batch_runner.py
+```
+
+This creates `result/reports/epw_idf_match_plan_*.xlsx` **without** running EnergyPlus.
+
+Default mapping:
+
+| IDF folder | EPW file |
+|------------|----------|
+| `ready_idf/shang4hai3shi4/` | `input/EPW/Shang4hai3shi4/Shanghai_2020.epw` |
+
+### 4. Run EnergyPlus
+
+```powershell
+$env:CHECK_ONLY = "false"
+py 1_idf_epw_batch_runner.py
+```
+
+Outputs:
+
+- Simulation files: `result/shang4hai3shi4/<idf_stem>/`
+- Run summary: `result/reports/epw_idf_run_report_*.xlsx`
+
+### Optional: RCP climate scenarios
+
+```powershell
+$env:EPW_STEM = "SHANGHAISHI_RCP4.5_2040"
+py 1_idf_epw_batch_runner.py
+```
+
+## Configuration
+
+All data paths in `1_idf_epw_batch_runner.py` are **relative to the repository root** (`PROJECT_ROOT =` directory containing the script). No drive letters or usernames are hard-coded.
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `IDF_ROOT` | `ready_idf` | Root folder with city subfolders of `.idf` files |
+| `EPW_DIR` | `input/EPW/Shang4hai3shi4` | Folder containing `.epw` files |
+| `OUT_ROOT` | `result` | EnergyPlus output root |
+| `REPORT_ROOT` | `result/reports` | Excel report output |
+| `EPW_STEM` | `Shanghai_2020` | EPW filename stem for folder `shang4hai3shi4` |
+| `ENERGYPLUS_DIR` | *(unset)* | Local EnergyPlus install directory |
+| `IDD_FILE` | `{ENERGYPLUS_DIR}/Energy+.idd` | Path to `Energy+.idd` |
+| `EP_VERSION` | `23-1-0` | EnergyPlus version passed to eppy |
+| `NUM_CPUS` | `6` | Parallel worker count |
+| `CHECK_ONLY` | `false` | If `true`, only export matching report |
+
+**Machine-specific vs portable paths**
+
+- **Portable (in repo):** `ready_idf/`, `input/EPW/Shang4hai3shi4/`, `result/`
+- **Machine-specific (you set locally):** `ENERGYPLUS_DIR` or `IDD_FILE`
+
+## Scripts
+
+| File | Required? | Description |
+|------|-----------|-------------|
+| `1_idf_epw_batch_runner.py` | **Yes** | Match Shanghai EPW to ready IDFs and run EnergyPlus in batch |
+| `backup_idf_batch_processor.py` | No | Three-stage IDF post-processor (schedules, loads, insulation). **Not needed** when using the bundled simulation-ready IDFs |
+
+## Generated files (not committed)
+
+The `result/` folder is created at runtime and should **not** be pushed to GitHub. It may contain:
+
+- `result/shang4hai3shi4/<idf_stem>/` — EnergyPlus outputs (`.csv`, `.sql`, `.err`, etc.)
+- `result/reports/epw_idf_match_plan_*.xlsx` — matching preview from `CHECK_ONLY=true`
+- `result/reports/epw_idf_run_report_*.xlsx` — success/failure summary after a full run
 
 ## Post-process: scale-up to city-wide buildings
 
-`1_GIS2IDF.py` builds **prototype** IDFs from `input/GIS/Prototype/` (one file per **`bh`**, e.g. `310000SHANGHAISHI_5.idf`). **City-wide scale-up** is described in the manuscript; this repository provides the GIS and IDF data used in that step, not a separate scale-up script.
+The bundled IDFs are **prototype** models (one file per archetype). **City-wide scale-up** is described in the manuscript; this repository provides the GIS and IDF data used in that step, not a separate scale-up script.
 
 | Data | Role |
 |------|------|
-| **CityBuilding** (unzip `input/GIS/CityBuilding/310000_shang4hai3shi4.zip`, read `.shp`) | All individual building footprints in Shanghai. |
-| **Prototype** (`input/GIS/Prototype/310000SHANGHAISHI.shp`) | Prototype buildings; source of geometry and IDF index **`bh`**. |
-| **`BuildID`** | Join key between Prototype and CityBuilding. |
-| **`bh`** | Prototype index; matches IDF filename suffix and `1_GIS2IDF.py` output. |
-| **`LandNum`** + **`Cluster`** | Together assign each building to the correct **`proptype`** (prototype type) for mapping prototype models to individual footprints. |
+| **CityBuilding** (`input/GIS/CityBuilding/310000_shang4hai3shi4.zip`) | All individual building footprints in Shanghai |
+| **Prototype** (`input/GIS/Prototype/310000_Shang4hai3shi4.shp`) | Prototype buildings; geometry and archetype index |
+| **`BuildID`** | Join key between Prototype and CityBuilding |
+| **`LandNum`** + **`Cluster`** | Assign each building to the correct prototype type |
+
+## Status
+
+- Manuscript submitted; target journal **TBD**
+- Shanghai prototype GIS, 113 simulation-ready IDFs, 7 EPW files, and batch simulation script are included
+- Additional cities may be released separately from the broader China Building Energy Model Database

@@ -1,0 +1,4181 @@
+!- Windows Line endings 
+
+VERSION,
+    23.2.0;                   !- Version Identifier
+
+SIMULATIONCONTROL,
+    Yes,                      !- Do Zone Sizing Calculation
+    Yes,                      !- Do System Sizing Calculation
+    No,                       !- Do Plant Sizing Calculation
+    No,                       !- Run Simulation for Sizing Periods
+    Yes,                      !- Run Simulation for Weather File Run Periods
+    No,                       !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                        !- Maximum Number of HVAC Sizing Simulation Passes
+
+BUILDING,
+    shang4hai3shi4_Commercial_3_7_1995,    !- Name
+    0,                        !- North Axis
+    City,                     !- Terrain
+    0.04,                     !- Loads Convergence Tolerance Value
+    0.4,                      !- Temperature Convergence Tolerance Value
+    FullExterior,             !- Solar Distribution
+    25,                       !- Maximum Number of Warmup Days
+    1;                        !- Minimum Number of Warmup Days
+
+SHADOWCALCULATION,
+    PolygonClipping,          !- Shading Calculation Method
+    Periodic,                 !- Shading Calculation Update Frequency Method
+    20,                       !- Shading Calculation Update Frequency
+    15000,                    !- Maximum Figures in Shadow Overlap Calculations
+    SutherlandHodgman,        !- Polygon Clipping Algorithm
+    512,                      !- Pixel Counting Resolution
+    SimpleSkyDiffuseModeling,    !- Sky Diffuse Modeling Algorithm
+    No,                       !- Output External Shading Calculation Results
+    No,                       !- Disable SelfShading Within Shading Zone Groups
+    No;                       !- Disable SelfShading From Shading Zone Groups to Other Zones
+
+HEATBALANCEALGORITHM,
+    ConductionTransferFunction,    !- Algorithm
+    200,                      !- Surface Temperature Upper Limit
+    ,                         !- Minimum Surface Convection Heat Transfer Coefficient Value
+    ;                         !- Maximum Surface Convection Heat Transfer Coefficient Value
+
+TIMESTEP,
+    1;                        !- Number of Timesteps per Hour
+
+CONVERGENCELIMITS,
+    1,                        !- Minimum System Timestep
+    20,                       !- Maximum HVAC Iterations
+    2,                        !- Minimum Plant Iterations
+    8;                        !- Maximum Plant Iterations
+
+RUNPERIOD,
+    Run_Period_1,             !- Name
+    1,                        !- Begin Month
+    1,                        !- Begin Day of Month
+    ,                         !- Begin Year
+    12,                       !- End Month
+    31,                       !- End Day of Month
+    ,                         !- End Year
+    ,                         !- Day of Week for Start Day
+    Yes,                      !- Use Weather File Holidays and Special Days
+    Yes,                      !- Use Weather File Daylight Saving Period
+    No,                       !- Apply Weekend Holiday Rule
+    Yes,                      !- Use Weather File Rain Indicators
+    Yes,                      !- Use Weather File Snow Indicators
+    ,                         !- Treat Weather as Actual
+    ;                         !- First Hour Interpolation Starting Values
+
+SCHEDULETYPELIMITS,
+    Fraction,                 !- Name
+    0,                        !- Lower Limit Value
+    1,                        !- Upper Limit Value
+    Continuous,               !- Numeric Type
+    ;                         !- Unit Type
+
+SCHEDULETYPELIMITS,
+    Temperature,              !- Name
+    ,                         !- Lower Limit Value
+    ,                         !- Upper Limit Value
+    Continuous,               !- Numeric Type
+    Temperature;              !- Unit Type
+
+SCHEDULETYPELIMITS,
+    Any Number,               !- Name
+    ,                         !- Lower Limit Value
+    ,                         !- Upper Limit Value
+    Continuous,               !- Numeric Type
+    Dimensionless;            !- Unit Type
+
+SCHEDULETYPELIMITS,
+    On/Off,                   !- Name
+    ,                         !- Lower Limit Value
+    ,                         !- Upper Limit Value
+    ,                         !- Numeric Type
+    Dimensionless;            !- Unit Type
+
+SCHEDULE:COMPACT,
+    People_Schedule,          !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 08:00,             !- Field 3
+    0,                        !- Field 4
+    Until: 09:00,             !- Field 5
+    0.2,                      !- Field 6
+    Until: 10:00,             !- Field 7
+    0.5,                      !- Field 8
+    Until: 20:00,             !- Field 9
+    0.8,                      !- Field 10
+    Until: 21:00,             !- Field 11
+    0.7,                      !- Field 12
+    Until: 22:00,             !- Field 13
+    0.5,                      !- Field 14
+    Until: 24:00,             !- Field 15
+    0;                        !- Field 16
+
+SCHEDULE:COMPACT,
+    Lights_Schedule,          !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 08:00,             !- Field 3
+    0.1,                      !- Field 4
+    Until: 09:00,             !- Field 5
+    0.5,                      !- Field 6
+    Until: 17:00,             !- Field 7
+    0.6,                      !- Field 8
+    Until: 18:00,             !- Field 9
+    0.8,                      !- Field 10
+    Until: 19:00,             !- Field 11
+    0.9,                      !- Field 12
+    Until: 22:00,             !- Field 13
+    1,                        !- Field 14
+    Until: 24:00,             !- Field 15
+    0.1;                      !- Field 16
+
+SCHEDULE:COMPACT,
+    ElectricEquipment_Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 08:00,             !- Field 3
+    0,                        !- Field 4
+    Until: 09:00,             !- Field 5
+    0.3,                      !- Field 6
+    Until: 10:00,             !- Field 7
+    0.5,                      !- Field 8
+    Until: 20:00,             !- Field 9
+    0.8,                      !- Field 10
+    Until: 21:00,             !- Field 11
+    0.7,                      !- Field 12
+    Until: 22:00,             !- Field 13
+    0.5,                      !- Field 14
+    Until: 24:00,             !- Field 15
+    0;                        !- Field 16
+
+SCHEDULE:COMPACT,
+    Heating_SP_Schedule,      !- Name
+    Temperature,              !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 07:00,             !- Field 3
+    5,                        !- Field 4
+    Until: 08:00,             !- Field 5
+    18,                       !- Field 6
+    Until: 09:00,             !- Field 7
+    20,                       !- Field 8
+    Until: 21:00,             !- Field 9
+    20,                       !- Field 10
+    Until: 22:00,             !- Field 11
+    18,                       !- Field 12
+    Until: 24:00,             !- Field 13
+    5;                        !- Field 14
+
+SCHEDULE:COMPACT,
+    Cooling_SP_Schedule,      !- Name
+    Temperature,              !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 09:00,             !- Field 3
+    37,                       !- Field 4
+    Until: 10:00,             !- Field 5
+    28,                       !- Field 6
+    Until: 21:00,             !- Field 7
+    28,                       !- Field 8
+    Until: 24:00,             !- Field 9
+    37;                       !- Field 10
+
+SCHEDULE:COMPACT,
+    Heating_Period_Schedule,    !- Name
+    On/Off,                   !- Schedule Type Limits Name
+    Through: 04/15,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    1,                        !- Field 4
+    Through: 11/01,           !- Field 5
+    For: AllDays,             !- Field 6
+    Until: 24:00,             !- Field 7
+    0,                        !- Field 8
+    Through: 12/31,           !- Field 9
+    For: AllDays,             !- Field 10
+    Until: 24:00,             !- Field 11
+    1;                        !- Field 12
+
+SCHEDULE:COMPACT,
+    Cooling_Period_Schedule,    !- Name
+    On/Off,                   !- Schedule Type Limits Name
+    Through: 04/15,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    0,                        !- Field 4
+    Through: 10/31,           !- Field 5
+    For: AllDays,             !- Field 6
+    Until: 24:00,             !- Field 7
+    1,                        !- Field 8
+    Through: 12/31,           !- Field 9
+    For: AllDays,             !- Field 10
+    Until: 24:00,             !- Field 11
+    0;                        !- Field 12
+
+SCHEDULE:COMPACT,
+    HVAC_ConditionedTime_Schedule,    !- Name
+    On/Off,                   !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 09:00,             !- Field 3
+    0,                        !- Field 4
+    Until: 21:00,             !- Field 5
+    1,                        !- Field 6
+    Until: 24:00,             !- Field 7
+    0;                        !- Field 8
+
+SCHEDULE:COMPACT,
+    AirEx_ConditionedTime_Schedule,    !- Name
+    Any Number,               !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 08:00,             !- Field 3
+    0,                        !- Field 4
+    Until: 22:00,             !- Field 5
+    3,                        !- Field 6
+    Until: 24:00,             !- Field 7
+    0;                        !- Field 8
+
+SCHEDULE:COMPACT,
+    CN_GenericActivityLevel,    !- Name
+    Any Number,               !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 08:00,             !- Field 3
+    80,                       !- Field 4
+    Until: 18:00,             !- Field 5
+    120,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    80,                       !- Field 8
+    For: AllOtherDays,        !- Field 9
+    Until: 24:00,             !- Field 10
+    80;                       !- Field 11
+
+MATERIAL,
+    Concrete,                 !- Name
+    MediumRough,              !- Roughness
+    0.1,                      !- Thickness
+    1.7,                      !- Conductivity
+    2240,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Brick,                    !- Name
+    MediumRough,              !- Roughness
+    0.1,                      !- Thickness
+    0.72,                     !- Conductivity
+    1920,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Tile,                     !- Name
+    Smooth,                   !- Roughness
+    0.02,                     !- Thickness
+    1.3,                      !- Conductivity
+    2200,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Gypsum,                   !- Name
+    Smooth,                   !- Roughness
+    0.015,                    !- Thickness
+    0.16,                     !- Conductivity
+    800,                      !- Density
+    1090,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    AsphaltFelt,              !- Name
+    Smooth,                   !- Roughness
+    0.01,                     !- Thickness
+    0.2,                      !- Conductivity
+    960,                      !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.003,         !- Name
+    Rough,                    !- Roughness
+    0.003,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.004,         !- Name
+    Rough,                    !- Roughness
+    0.004,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.007,         !- Name
+    Rough,                    !- Roughness
+    0.007,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.011,         !- Name
+    Rough,                    !- Roughness
+    0.011,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.012,         !- Name
+    Rough,                    !- Roughness
+    0.012,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.013,         !- Name
+    Rough,                    !- Roughness
+    0.013,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.014,         !- Name
+    Rough,                    !- Roughness
+    0.014,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.016,         !- Name
+    Rough,                    !- Roughness
+    0.016,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.017,         !- Name
+    Rough,                    !- Roughness
+    0.017,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.018,         !- Name
+    Rough,                    !- Roughness
+    0.018,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.021,         !- Name
+    Rough,                    !- Roughness
+    0.021,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.022,         !- Name
+    Rough,                    !- Roughness
+    0.022,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.024,         !- Name
+    Rough,                    !- Roughness
+    0.024,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.027,         !- Name
+    Rough,                    !- Roughness
+    0.027,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.028,         !- Name
+    Rough,                    !- Roughness
+    0.028,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.029,         !- Name
+    Rough,                    !- Roughness
+    0.029,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.032,         !- Name
+    Rough,                    !- Roughness
+    0.032,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.036,         !- Name
+    Rough,                    !- Roughness
+    0.036,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.038,         !- Name
+    Rough,                    !- Roughness
+    0.038,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.040,         !- Name
+    Rough,                    !- Roughness
+    0.04,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.043,         !- Name
+    Rough,                    !- Roughness
+    0.043,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.046,         !- Name
+    Rough,                    !- Roughness
+    0.046,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.048,         !- Name
+    Rough,                    !- Roughness
+    0.048,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.057,         !- Name
+    Rough,                    !- Roughness
+    0.057,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.069,         !- Name
+    Rough,                    !- Roughness
+    0.069,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.077,         !- Name
+    Rough,                    !- Roughness
+    0.077,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.095,         !- Name
+    Rough,                    !- Roughness
+    0.095,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.062,         !- Name
+    Rough,                    !- Roughness
+    0.062,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.11,          !- Name
+    Rough,                    !- Roughness
+    0.11,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.14,          !- Name
+    Rough,                    !- Roughness
+    0.14,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.025,         !- Name
+    Rough,                    !- Roughness
+    0.025,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.049,         !- Name
+    Rough,                    !- Roughness
+    0.049,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.081,         !- Name
+    Rough,                    !- Roughness
+    0.081,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.097,         !- Name
+    Rough,                    !- Roughness
+    0.097,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.01,          !- Name
+    Rough,                    !- Roughness
+    0.01,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.034,         !- Name
+    Rough,                    !- Roughness
+    0.034,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.033,         !- Name
+    Rough,                    !- Roughness
+    0.033,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.06,          !- Name
+    Rough,                    !- Roughness
+    0.06,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.073,         !- Name
+    Rough,                    !- Roughness
+    0.073,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.085,         !- Name
+    Rough,                    !- Roughness
+    0.085,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.072,         !- Name
+    Rough,                    !- Roughness
+    0.072,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.05,          !- Name
+    Rough,                    !- Roughness
+    0.05,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.053,         !- Name
+    Rough,                    !- Roughness
+    0.053,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.068,         !- Name
+    Rough,                    !- Roughness
+    0.068,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.042,         !- Name
+    Rough,                    !- Roughness
+    0.042,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.059,         !- Name
+    Rough,                    !- Roughness
+    0.059,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.0078,        !- Name
+    Rough,                    !- Roughness
+    0.008,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.096,         !- Name
+    Rough,                    !- Roughness
+    0.096,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.019,         !- Name
+    Rough,                    !- Roughness
+    0.019,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.0059,        !- Name
+    Rough,                    !- Roughness
+    0.006,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.04,          !- Name
+    Rough,                    !- Roughness
+    0.04,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.076,         !- Name
+    Rough,                    !- Roughness
+    0.076,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.0081,        !- Name
+    Rough,                    !- Roughness
+    0.008,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.0044,        !- Name
+    Rough,                    !- Roughness
+    0.004,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.02,          !- Name
+    Rough,                    !- Roughness
+    0.02,                     !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.0054,        !- Name
+    Rough,                    !- Roughness
+    0.005,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+MATERIAL,
+    Insulation 0.0033,        !- Name
+    Rough,                    !- Roughness
+    0.003,                    !- Thickness
+    0.04,                     !- Conductivity
+    40,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ1_Public&Industrial_1980_Win_material,    !- Name
+    3.26,                     !- UFactor
+    0.7;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ1_Public&Industrial_1995_Win_material,    !- Name
+    2.5,                      !- UFactor
+    0.5;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ1_Public&Industrial_2005_Win_material,    !- Name
+    2.5,                      !- UFactor
+    0.4;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ1_Public&Industrial_2015_Win_material,    !- Name
+    2.2,                      !- UFactor
+    0.4;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ2_Public&Industrial_1980_Win_material,    !- Name
+    4.5,                      !- UFactor
+    0.7;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ2_Public&Industrial_1995_Win_material,    !- Name
+    3.5,                      !- UFactor
+    0.5;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ2_Public&Industrial_2005_Win_material,    !- Name
+    2.6,                      !- UFactor
+    0.5;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    SCZ2_Public&Industrial_2015_Win_material,    !- Name
+    2.3,                      !- UFactor
+    0.5;                      !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    CZ_Public&Industrial_1980_Win_material,    !- Name
+    6.1,                      !- UFactor
+    0.75;                     !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    CZ_Public&Industrial_1995_Win_material,    !- Name
+    4.5,                      !- UFactor
+    0.6025;                   !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    CZ_Public&Industrial_2005_Win_material,    !- Name
+    3.175,                    !- UFactor
+    0.485;                    !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    CZ_Public&Industrial_2015_Win_material,    !- Name
+    2.425,                    !- UFactor
+    0.3825;                   !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSCWZ_Public&Industrial_1980_Win_material,    !- Name
+    6.1,                      !- UFactor
+    0.75;                     !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSCWZ_Public&Industrial_1995_Win_material,    !- Name
+    4.5,                      !- UFactor
+    0.6025;                   !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSCWZ_Public&Industrial_2005_Win_material,    !- Name
+    3.175,                    !- UFactor
+    0.485;                    !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSCWZ_Public&Industrial_2015_Win_material,    !- Name
+    2.425,                    !- UFactor
+    0.3825;                   !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSWWZ_Public&Industrial_1980_Win_material,    !- Name
+    6.1,                      !- UFactor
+    0.75;                     !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSWWZ_Public&Industrial_1995_Win_material,    !- Name
+    4.5,                      !- UFactor
+    0.6025;                   !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSWWZ_Public&Industrial_2005_Win_material,    !- Name
+    3.175,                    !- UFactor
+    0.485;                    !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    HSWWZ_Public&Industrial_2015_Win_material,    !- Name
+    2.425,                    !- UFactor
+    0.3825;                   !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    TZ_Public&Industrial_1980_Win_material,    !- Name
+    6.1,                      !- UFactor
+    0.75;                     !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    TZ_Public&Industrial_1995_Win_material,    !- Name
+    4.5,                      !- UFactor
+    0.6025;                   !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    TZ_Public&Industrial_2005_Win_material,    !- Name
+    3.175,                    !- UFactor
+    0.485;                    !- Solar Heat Gain Coefficient
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    TZ_Public&Industrial_2015_Win_material,    !- Name
+    2.425,                    !- UFactor
+    0.3825;                   !- Solar Heat Gain Coefficient
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1980_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1995_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.027,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2005_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.034,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2015_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.034,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1980_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.033;         !- Layer 4
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1995_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.06;          !- Layer 4
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2005_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.06;          !- Layer 4
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2015_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.073;         !- Layer 4
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1980_Win,    !- Name
+    SCZ1_Public&Industrial_1980_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1995_Win,    !- Name
+    SCZ1_Public&Industrial_1995_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2005_Win,    !- Name
+    SCZ1_Public&Industrial_2005_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2015_Win,    !- Name
+    SCZ1_Public&Industrial_2015_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1980_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1995_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.027,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2005_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.034,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2015_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.034,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1980_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.033;         !- Layer 4
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1995_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.043;         !- Layer 4
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2005_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.043;         !- Layer 4
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2015_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.05;          !- Layer 4
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1980_Win,    !- Name
+    SCZ2_Public&Industrial_1980_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1995_Win,    !- Name
+    SCZ2_Public&Industrial_1995_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2005_Win,    !- Name
+    SCZ2_Public&Industrial_2005_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2015_Win,    !- Name
+    SCZ2_Public&Industrial_2015_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1980_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.018,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1995_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.027,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2005_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.034,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2015_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.034,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1980_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.027;         !- Layer 4
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1995_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.05;          !- Layer 4
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2005_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.043;         !- Layer 4
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2015_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.05;          !- Layer 4
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1980_Win,    !- Name
+    CZ_Public&Industrial_1980_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1995_Win,    !- Name
+    CZ_Public&Industrial_1995_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2005_Win,    !- Name
+    CZ_Public&Industrial_2005_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2015_Win,    !- Name
+    CZ_Public&Industrial_2015_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1980_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2005_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2015_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1980_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.024;         !- Layer 4
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1995_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.043;         !- Layer 4
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2005_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.043;         !- Layer 4
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2015_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.043;         !- Layer 4
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1980_Win,    !- Name
+    HSCWZ_Public&Industrial_1980_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1995_Win,    !- Name
+    HSCWZ_Public&Industrial_1995_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2005_Win,    !- Name
+    HSCWZ_Public&Industrial_2005_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2015_Win,    !- Name
+    HSCWZ_Public&Industrial_2015_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1980_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.01,          !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1995_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2005_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2015_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1980_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.02;          !- Layer 4
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1995_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.033;         !- Layer 4
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2005_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.033;         !- Layer 4
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2015_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.033;         !- Layer 4
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1980_Win,    !- Name
+    HSWWZ_Public&Industrial_1980_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1995_Win,    !- Name
+    HSWWZ_Public&Industrial_1995_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2005_Win,    !- Name
+    HSWWZ_Public&Industrial_2005_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2015_Win,    !- Name
+    HSWWZ_Public&Industrial_2015_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1980_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.01,          !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1995_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.01,          !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2005_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2015_FloorSlab,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014,         !- Layer 3
+    Concrete,                 !- Layer 4
+    Tile;                     !- Layer 5
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1980_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.017;         !- Layer 4
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1995_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.027;         !- Layer 4
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2005_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.02;          !- Layer 4
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2015_FloorGround,    !- Name
+    Tile,                     !- Outside Layer
+    Concrete,                 !- Layer 2
+    Gypsum,                   !- Layer 3
+    Insulation 0.02;          !- Layer 4
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1980_Win,    !- Name
+    TZ_Public&Industrial_1980_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1995_Win,    !- Name
+    TZ_Public&Industrial_1995_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2005_Win,    !- Name
+    TZ_Public&Industrial_2005_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2015_Win,    !- Name
+    TZ_Public&Industrial_2015_Win_material;    !- Outside Layer
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1980_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.048;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1995_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.048;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2005_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.048;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2015_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.048;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1980_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1995_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2005_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2015_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1980_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_1995_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2005_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    SCZ1_Public&Industrial_2015_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1980_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.036;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1995_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.036;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2005_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.036;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2015_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.036;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1980_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1995_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2005_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2015_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.021;         !- Layer 3
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1980_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_1995_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2005_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    SCZ2_Public&Industrial_2015_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1980_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.027;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1995_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.027;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2005_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.027;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2015_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.027;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1980_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1995_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2005_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2015_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.014;         !- Layer 3
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1980_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    CZ_Public&Industrial_1995_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2005_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    CZ_Public&Industrial_2015_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1980_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1995_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2005_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2015_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.022;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1980_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.011;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.011;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2005_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.011;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2015_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.011;         !- Layer 3
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1980_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_1995_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2005_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSCWZ_Public&Industrial_2015_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1980_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.016;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1995_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.016;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2005_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.016;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2015_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.016;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1980_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.007;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1995_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.007;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2005_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.007;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2015_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.007;         !- Layer 3
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1980_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_1995_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2005_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    HSWWZ_Public&Industrial_2015_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1980_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.012;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1995_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.012;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2005_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.012;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2015_Roof,    !- Name
+    AsphaltFelt,              !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.012;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1980_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.004;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1995_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.004;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2005_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.004;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2015_ExtWall,    !- Name
+    Brick,                    !- Outside Layer
+    Concrete,                 !- Layer 2
+    Insulation 0.004;         !- Layer 3
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1980_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    TZ_Public&Industrial_1995_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2005_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+CONSTRUCTION,
+    TZ_Public&Industrial_2015_IntWall,    !- Name
+    Brick,                    !- Outside Layer
+    Brick;                    !- Layer 2
+
+GLOBALGEOMETRYRULES,
+    UpperRightCorner,         !- Starting Vertex Position
+    Counterclockwise,         !- Vertex Entry Direction
+    Relative,                 !- Coordinate System
+    Relative,                 !- Daylighting Reference Point Coordinate System
+    Relative;                 !- Rectangular Surface Coordinate System
+
+ZONE,
+    Block Poly_44_Commercial Storey 0,    !- Name
+    0,                        !- Direction of Relative North
+    0,                        !- X Origin
+    0,                        !- Y Origin
+    0,                        !- Z Origin
+    1,                        !- Type
+    1,                        !- Multiplier
+    autocalculate,            !- Ceiling Height
+    autocalculate,            !- Volume
+    autocalculate,            !- Floor Area
+    ,                         !- Zone Inside Convection Algorithm
+    ,                         !- Zone Outside Convection Algorithm
+    Yes;                      !- Part of Total Floor Area
+
+ZONE,
+    Block Poly_44_Commercial Storey 1,    !- Name
+    0,                        !- Direction of Relative North
+    0,                        !- X Origin
+    0,                        !- Y Origin
+    0,                        !- Z Origin
+    1,                        !- Type
+    1,                        !- Multiplier
+    autocalculate,            !- Ceiling Height
+    autocalculate,            !- Volume
+    autocalculate,            !- Floor Area
+    ,                         !- Zone Inside Convection Algorithm
+    ,                         !- Zone Outside Convection Algorithm
+    Yes;                      !- Part of Total Floor Area
+
+ZONE,
+    Block Poly_44_Commercial Storey 2,    !- Name
+    0,                        !- Direction of Relative North
+    0,                        !- X Origin
+    0,                        !- Y Origin
+    0,                        !- Z Origin
+    1,                        !- Type
+    1,                        !- Multiplier
+    autocalculate,            !- Ceiling Height
+    autocalculate,            !- Volume
+    autocalculate,            !- Floor Area
+    ,                         !- Zone Inside Convection Algorithm
+    ,                         !- Zone Outside Convection Algorithm
+    Yes;                      !- Part of Total Floor Area
+
+ZONE,
+    Block Poly_44_Commercial Storey 3,    !- Name
+    0,                        !- Direction of Relative North
+    0,                        !- X Origin
+    0,                        !- Y Origin
+    0,                        !- Z Origin
+    1,                        !- Type
+    1,                        !- Multiplier
+    autocalculate,            !- Ceiling Height
+    autocalculate,            !- Volume
+    autocalculate,            !- Floor Area
+    ,                         !- Zone Inside Convection Algorithm
+    ,                         !- Zone Outside Convection Algorithm
+    Yes;                      !- Part of Total Floor Area
+
+ZONE,
+    Block Poly_44_Commercial Storey 4,    !- Name
+    0,                        !- Direction of Relative North
+    0,                        !- X Origin
+    0,                        !- Y Origin
+    0,                        !- Z Origin
+    1,                        !- Type
+    1,                        !- Multiplier
+    autocalculate,            !- Ceiling Height
+    autocalculate,            !- Volume
+    autocalculate,            !- Floor Area
+    ,                         !- Zone Inside Convection Algorithm
+    ,                         !- Zone Outside Convection Algorithm
+    Yes;                      !- Part of Total Floor Area
+
+ZONE,
+    Block Poly_44_Commercial Storey 5,    !- Name
+    0,                        !- Direction of Relative North
+    0,                        !- X Origin
+    0,                        !- Y Origin
+    0,                        !- Z Origin
+    1,                        !- Type
+    1,                        !- Multiplier
+    autocalculate,            !- Ceiling Height
+    autocalculate,            !- Volume
+    autocalculate,            !- Floor Area
+    ,                         !- Zone Inside Convection Algorithm
+    ,                         !- Zone Outside Convection Algorithm
+    Yes;                      !- Part of Total Floor Area
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0001,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 0,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    0.9374856487847864,       !- Vertex 1 Ycoordinate
+    3,                        !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0.9374856487847864,       !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    62.32362673676107,        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    62.32362673676107,        !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    3;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0002,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 0,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.32362673676107,        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    3,                        !- Vertex 1 Zcoordinate
+    62.32362673676107,        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    62.43425714992918,        !- Vertex 3 Xcoordinate
+    15.519902697764335,       !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    62.43425714992918,        !- Vertex 4 Xcoordinate
+    15.519902697764335,       !- Vertex 4 Ycoordinate
+    3;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0003,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 0,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714992918,        !- Vertex 1 Xcoordinate
+    15.519902697764335,       !- Vertex 1 Ycoordinate
+    3,                        !- Vertex 1 Zcoordinate
+    62.43425714992918,        !- Vertex 2 Xcoordinate
+    15.519902697764335,       !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    0.2058754197787493,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    0.2058754197787493,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    3;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0004,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 0,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0.2058754197787493,       !- Vertex 1 Xcoordinate
+    16.456128680612892,       !- Vertex 1 Ycoordinate
+    3,                        !- Vertex 1 Zcoordinate
+    0.2058754197787493,       !- Vertex 2 Xcoordinate
+    16.456128680612892,       !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856487847864,       !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856487847864,       !- Vertex 4 Ycoordinate
+    3;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Floor 0001,    !- Name
+    Floor,                    !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorGround,    !- Construction Name
+    Block Poly_44_Commercial Storey 0,    !- Zone Name
+    ,                         !- Space Name
+    Ground,                   !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714992918,        !- Vertex 1 Xcoordinate
+    15.519902697764335,       !- Vertex 1 Ycoordinate
+    0,                        !- Vertex 1 Zcoordinate
+    62.32362673676107,        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856487847864,       !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    0.2058754197787493,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    0;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0001,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 1,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    0.9374856487847864,       !- Vertex 1 Ycoordinate
+    6,                        !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0.9374856487847864,       !- Vertex 2 Ycoordinate
+    3,                        !- Vertex 2 Zcoordinate
+    62.32362673676107,        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    3,                        !- Vertex 3 Zcoordinate
+    62.32362673676107,        !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    6;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0002,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 1,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.32362673676107,        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    6,                        !- Vertex 1 Zcoordinate
+    62.32362673676107,        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    3,                        !- Vertex 2 Zcoordinate
+    62.43425714992918,        !- Vertex 3 Xcoordinate
+    15.519902697764335,       !- Vertex 3 Ycoordinate
+    3,                        !- Vertex 3 Zcoordinate
+    62.43425714992918,        !- Vertex 4 Xcoordinate
+    15.519902697764335,       !- Vertex 4 Ycoordinate
+    6;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0003,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 1,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714992918,        !- Vertex 1 Xcoordinate
+    15.519902697764335,       !- Vertex 1 Ycoordinate
+    6,                        !- Vertex 1 Zcoordinate
+    62.43425714992918,        !- Vertex 2 Xcoordinate
+    15.519902697764335,       !- Vertex 2 Ycoordinate
+    3,                        !- Vertex 2 Zcoordinate
+    0.2058754197787493,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    3,                        !- Vertex 3 Zcoordinate
+    0.2058754197787493,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    6;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0004,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 1,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0.2058754197787493,       !- Vertex 1 Xcoordinate
+    16.456128680612892,       !- Vertex 1 Ycoordinate
+    6,                        !- Vertex 1 Zcoordinate
+    0.2058754197787493,       !- Vertex 2 Xcoordinate
+    16.456128680612892,       !- Vertex 2 Ycoordinate
+    3,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856487847864,       !- Vertex 3 Ycoordinate
+    3,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856487847864,       !- Vertex 4 Ycoordinate
+    6;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0001,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 2,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    0.9374856487847864,       !- Vertex 1 Ycoordinate
+    9,                        !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0.9374856487847864,       !- Vertex 2 Ycoordinate
+    6,                        !- Vertex 2 Zcoordinate
+    62.32362673676107,        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    6,                        !- Vertex 3 Zcoordinate
+    62.32362673676107,        !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    9;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0002,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 2,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.32362673676107,        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    9,                        !- Vertex 1 Zcoordinate
+    62.32362673676107,        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    6,                        !- Vertex 2 Zcoordinate
+    62.43425714992918,        !- Vertex 3 Xcoordinate
+    15.519902697764335,       !- Vertex 3 Ycoordinate
+    6,                        !- Vertex 3 Zcoordinate
+    62.43425714992918,        !- Vertex 4 Xcoordinate
+    15.519902697764335,       !- Vertex 4 Ycoordinate
+    9;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0003,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 2,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714992918,        !- Vertex 1 Xcoordinate
+    15.519902697764335,       !- Vertex 1 Ycoordinate
+    9,                        !- Vertex 1 Zcoordinate
+    62.43425714992918,        !- Vertex 2 Xcoordinate
+    15.519902697764335,       !- Vertex 2 Ycoordinate
+    6,                        !- Vertex 2 Zcoordinate
+    0.2058754197787493,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    6,                        !- Vertex 3 Zcoordinate
+    0.2058754197787493,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    9;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0004,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 2,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0.2058754197787493,       !- Vertex 1 Xcoordinate
+    16.456128680612892,       !- Vertex 1 Ycoordinate
+    9,                        !- Vertex 1 Zcoordinate
+    0.2058754197787493,       !- Vertex 2 Xcoordinate
+    16.456128680612892,       !- Vertex 2 Ycoordinate
+    6,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856487847864,       !- Vertex 3 Ycoordinate
+    6,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856487847864,       !- Vertex 4 Ycoordinate
+    9;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0001,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 3,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    0.9374856487847864,       !- Vertex 1 Ycoordinate
+    12,                       !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0.9374856487847864,       !- Vertex 2 Ycoordinate
+    9,                        !- Vertex 2 Zcoordinate
+    62.32362673676107,        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    9,                        !- Vertex 3 Zcoordinate
+    62.32362673676107,        !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    12;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0002,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 3,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.32362673676107,        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    12,                       !- Vertex 1 Zcoordinate
+    62.32362673676107,        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    9,                        !- Vertex 2 Zcoordinate
+    62.43425714992918,        !- Vertex 3 Xcoordinate
+    15.519902697764335,       !- Vertex 3 Ycoordinate
+    9,                        !- Vertex 3 Zcoordinate
+    62.43425714992918,        !- Vertex 4 Xcoordinate
+    15.519902697764335,       !- Vertex 4 Ycoordinate
+    12;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0003,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 3,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714992918,        !- Vertex 1 Xcoordinate
+    15.519902697764335,       !- Vertex 1 Ycoordinate
+    12,                       !- Vertex 1 Zcoordinate
+    62.43425714992918,        !- Vertex 2 Xcoordinate
+    15.519902697764335,       !- Vertex 2 Ycoordinate
+    9,                        !- Vertex 2 Zcoordinate
+    0.2058754197787493,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    9,                        !- Vertex 3 Zcoordinate
+    0.2058754197787493,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    12;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0004,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 3,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0.2058754197787493,       !- Vertex 1 Xcoordinate
+    16.456128680612892,       !- Vertex 1 Ycoordinate
+    12,                       !- Vertex 1 Zcoordinate
+    0.2058754197787493,       !- Vertex 2 Xcoordinate
+    16.456128680612892,       !- Vertex 2 Ycoordinate
+    9,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856487847864,       !- Vertex 3 Ycoordinate
+    9,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856487847864,       !- Vertex 4 Ycoordinate
+    12;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0001,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 4,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    0.9374856487847864,       !- Vertex 1 Ycoordinate
+    15,                       !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0.9374856487847864,       !- Vertex 2 Ycoordinate
+    12,                       !- Vertex 2 Zcoordinate
+    62.32362673676107,        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    12,                       !- Vertex 3 Zcoordinate
+    62.32362673676107,        !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    15;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0002,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 4,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.32362673676107,        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    15,                       !- Vertex 1 Zcoordinate
+    62.32362673676107,        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    12,                       !- Vertex 2 Zcoordinate
+    62.43425714992918,        !- Vertex 3 Xcoordinate
+    15.519902697764335,       !- Vertex 3 Ycoordinate
+    12,                       !- Vertex 3 Zcoordinate
+    62.43425714992918,        !- Vertex 4 Xcoordinate
+    15.519902697764335,       !- Vertex 4 Ycoordinate
+    15;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0003,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 4,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714992918,        !- Vertex 1 Xcoordinate
+    15.519902697764335,       !- Vertex 1 Ycoordinate
+    15,                       !- Vertex 1 Zcoordinate
+    62.43425714992918,        !- Vertex 2 Xcoordinate
+    15.519902697764335,       !- Vertex 2 Ycoordinate
+    12,                       !- Vertex 2 Zcoordinate
+    0.2058754197787493,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    12,                       !- Vertex 3 Zcoordinate
+    0.2058754197787493,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    15;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0004,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 4,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0.2058754197787493,       !- Vertex 1 Xcoordinate
+    16.456128680612892,       !- Vertex 1 Ycoordinate
+    15,                       !- Vertex 1 Zcoordinate
+    0.2058754197787493,       !- Vertex 2 Xcoordinate
+    16.456128680612892,       !- Vertex 2 Ycoordinate
+    12,                       !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856487847864,       !- Vertex 3 Ycoordinate
+    12,                       !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856487847864,       !- Vertex 4 Ycoordinate
+    15;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0001,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 5,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    0.9374856487847864,       !- Vertex 1 Ycoordinate
+    18,                       !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0.9374856487847864,       !- Vertex 2 Ycoordinate
+    15,                       !- Vertex 2 Zcoordinate
+    62.32362673676107,        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    15,                       !- Vertex 3 Zcoordinate
+    62.32362673676107,        !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    18;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0002,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 5,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.32362673676107,        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    18,                       !- Vertex 1 Zcoordinate
+    62.32362673676107,        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    15,                       !- Vertex 2 Zcoordinate
+    62.43425714992918,        !- Vertex 3 Xcoordinate
+    15.519902697764335,       !- Vertex 3 Ycoordinate
+    15,                       !- Vertex 3 Zcoordinate
+    62.43425714992918,        !- Vertex 4 Xcoordinate
+    15.519902697764335,       !- Vertex 4 Ycoordinate
+    18;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0003,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 5,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714992918,        !- Vertex 1 Xcoordinate
+    15.519902697764335,       !- Vertex 1 Ycoordinate
+    18,                       !- Vertex 1 Zcoordinate
+    62.43425714992918,        !- Vertex 2 Xcoordinate
+    15.519902697764335,       !- Vertex 2 Ycoordinate
+    15,                       !- Vertex 2 Zcoordinate
+    0.2058754197787493,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    15,                       !- Vertex 3 Zcoordinate
+    0.2058754197787493,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    18;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0004,    !- Name
+    Wall,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_ExtWall,    !- Construction Name
+    Block Poly_44_Commercial Storey 5,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    0.2058754197787493,       !- Vertex 1 Xcoordinate
+    16.456128680612892,       !- Vertex 1 Ycoordinate
+    18,                       !- Vertex 1 Zcoordinate
+    0.2058754197787493,       !- Vertex 2 Xcoordinate
+    16.456128680612892,       !- Vertex 2 Ycoordinate
+    15,                       !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856487847864,       !- Vertex 3 Ycoordinate
+    15,                       !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856487847864,       !- Vertex 4 Ycoordinate
+    18;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Roof 0001,    !- Name
+    Roof,                     !- Surface Type
+    HSCWZ_Public&Industrial_1995_Roof,    !- Construction Name
+    Block Poly_44_Commercial Storey 5,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.32362673676107,        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    18,                       !- Vertex 1 Zcoordinate
+    62.43425714992918,        !- Vertex 2 Xcoordinate
+    15.519902697764335,       !- Vertex 2 Ycoordinate
+    18,                       !- Vertex 2 Zcoordinate
+    0.2058754197787493,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    18,                       !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856487847864,       !- Vertex 4 Ycoordinate
+    18;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Ceiling 0001_1,    !- Name
+    Ceiling,                  !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 0,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 1 Floor 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.323626736644655,       !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    3,                        !- Vertex 1 Zcoordinate
+    62.43425714969635,        !- Vertex 2 Xcoordinate
+    15.519902697298676,       !- Vertex 2 Ycoordinate
+    3,                        !- Vertex 2 Zcoordinate
+    0.2058754195459187,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    3,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856483191252,       !- Vertex 4 Ycoordinate
+    3;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Floor 0001_1,    !- Name
+    Floor,                    !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 1,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 0 Ceiling 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714969635,        !- Vertex 1 Xcoordinate
+    15.519902697298676,       !- Vertex 1 Ycoordinate
+    3,                        !- Vertex 1 Zcoordinate
+    62.323626736644655,       !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    3,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856483191252,       !- Vertex 3 Ycoordinate
+    3,                        !- Vertex 3 Zcoordinate
+    0.2058754195459187,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    3;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Ceiling 0001_1,    !- Name
+    Ceiling,                  !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 1,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 2 Floor 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.323626736644655,       !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    6,                        !- Vertex 1 Zcoordinate
+    62.43425714969635,        !- Vertex 2 Xcoordinate
+    15.519902697298676,       !- Vertex 2 Ycoordinate
+    6,                        !- Vertex 2 Zcoordinate
+    0.2058754195459187,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    6,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856483191252,       !- Vertex 4 Ycoordinate
+    6;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Floor 0001_1,    !- Name
+    Floor,                    !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 2,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 1 Ceiling 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714969635,        !- Vertex 1 Xcoordinate
+    15.519902697298676,       !- Vertex 1 Ycoordinate
+    6,                        !- Vertex 1 Zcoordinate
+    62.323626736644655,       !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    6,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856483191252,       !- Vertex 3 Ycoordinate
+    6,                        !- Vertex 3 Zcoordinate
+    0.2058754195459187,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    6;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Ceiling 0001_1,    !- Name
+    Ceiling,                  !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 2,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 3 Floor 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.323626736644655,       !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    9,                        !- Vertex 1 Zcoordinate
+    62.43425714969635,        !- Vertex 2 Xcoordinate
+    15.519902697298676,       !- Vertex 2 Ycoordinate
+    9,                        !- Vertex 2 Zcoordinate
+    0.2058754195459187,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    9,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856483191252,       !- Vertex 4 Ycoordinate
+    9;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Floor 0001_1,    !- Name
+    Floor,                    !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 3,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 2 Ceiling 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714969635,        !- Vertex 1 Xcoordinate
+    15.519902697298676,       !- Vertex 1 Ycoordinate
+    9,                        !- Vertex 1 Zcoordinate
+    62.323626736644655,       !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    9,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856483191252,       !- Vertex 3 Ycoordinate
+    9,                        !- Vertex 3 Zcoordinate
+    0.2058754195459187,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    9;                        !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Ceiling 0001_1,    !- Name
+    Ceiling,                  !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 3,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 4 Floor 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.323626736644655,       !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    12,                       !- Vertex 1 Zcoordinate
+    62.43425714969635,        !- Vertex 2 Xcoordinate
+    15.519902697298676,       !- Vertex 2 Ycoordinate
+    12,                       !- Vertex 2 Zcoordinate
+    0.2058754195459187,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    12,                       !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856483191252,       !- Vertex 4 Ycoordinate
+    12;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Floor 0001_1,    !- Name
+    Floor,                    !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 4,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 3 Ceiling 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714969635,        !- Vertex 1 Xcoordinate
+    15.519902697298676,       !- Vertex 1 Ycoordinate
+    12,                       !- Vertex 1 Zcoordinate
+    62.323626736644655,       !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    12,                       !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856483191252,       !- Vertex 3 Ycoordinate
+    12,                       !- Vertex 3 Zcoordinate
+    0.2058754195459187,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    12;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Ceiling 0001_1,    !- Name
+    Ceiling,                  !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 4,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 5 Floor 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.323626736644655,       !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    15,                       !- Vertex 1 Zcoordinate
+    62.43425714969635,        !- Vertex 2 Xcoordinate
+    15.519902697298676,       !- Vertex 2 Ycoordinate
+    15,                       !- Vertex 2 Zcoordinate
+    0.2058754195459187,       !- Vertex 3 Xcoordinate
+    16.456128680612892,       !- Vertex 3 Ycoordinate
+    15,                       !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0.9374856483191252,       !- Vertex 4 Ycoordinate
+    15;                       !- Vertex 4 Zcoordinate
+
+BUILDINGSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Floor 0001_1,    !- Name
+    Floor,                    !- Surface Type
+    HSCWZ_Public&Industrial_1995_FloorSlab,    !- Construction Name
+    Block Poly_44_Commercial Storey 5,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    Block Poly_44_Commercial Storey 4 Ceiling 0001_1,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    autocalculate,            !- View Factor to Ground
+    autocalculate,            !- Number of Vertices
+    62.43425714969635,        !- Vertex 1 Xcoordinate
+    15.519902697298676,       !- Vertex 1 Ycoordinate
+    15,                       !- Vertex 1 Zcoordinate
+    62.323626736644655,       !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    15,                       !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0.9374856483191252,       !- Vertex 3 Ycoordinate
+    15,                       !- Vertex 3 Zcoordinate
+    0.2058754195459187,       !- Vertex 4 Xcoordinate
+    16.456128680612892,       !- Vertex 4 Ycoordinate
+    15;                       !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0001 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 0 Wall 0001,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.03116181,               !- Vertex 1 Xcoordinate
+    0.9370169059603939,       !- Vertex 1 Ycoordinate
+    2.025,                    !- Vertex 1 Zcoordinate
+    0.03116181,               !- Vertex 2 Xcoordinate
+    0.9370169059603939,       !- Vertex 2 Ycoordinate
+    0.9750000000000001,       !- Vertex 2 Zcoordinate
+    62.292464923392686,       !- Vertex 3 Xcoordinate
+    0.0004687428,             !- Vertex 3 Ycoordinate
+    0.9750000000000001,       !- Vertex 3 Zcoordinate
+    62.292464923392686,       !- Vertex 4 Xcoordinate
+    0.0004687428,             !- Vertex 4 Ycoordinate
+    2.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0002 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 0 Wall 0002,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.32368205196765,        !- Vertex 1 Xcoordinate
+    0.007759951,              !- Vertex 1 Ycoordinate
+    2.025,                    !- Vertex 1 Zcoordinate
+    62.32368205196765,        !- Vertex 2 Xcoordinate
+    0.007759951,              !- Vertex 2 Ycoordinate
+    0.9750000000000001,       !- Vertex 2 Zcoordinate
+    62.4342018347226,         !- Vertex 3 Xcoordinate
+    15.512142746415453,       !- Vertex 3 Ycoordinate
+    0.9750000000000001,       !- Vertex 3 Zcoordinate
+    62.4342018347226,         !- Vertex 4 Xcoordinate
+    15.512142746415453,       !- Vertex 4 Ycoordinate
+    2.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0003 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 0 Wall 0003,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.403142959064105,       !- Vertex 1 Xcoordinate
+    15.52037081075576,        !- Vertex 1 Ycoordinate
+    2.025,                    !- Vertex 1 Zcoordinate
+    62.403142959064105,       !- Vertex 2 Xcoordinate
+    15.52037081075576,        !- Vertex 2 Ycoordinate
+    0.9750000000000001,       !- Vertex 2 Zcoordinate
+    0.2369896,                !- Vertex 3 Xcoordinate
+    16.455660567621468,       !- Vertex 3 Ycoordinate
+    0.9750000000000001,       !- Vertex 3 Zcoordinate
+    0.2369896,                !- Vertex 4 Xcoordinate
+    16.455660567621468,       !- Vertex 4 Ycoordinate
+    2.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 0 Wall 0004 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 0 Wall 0004,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.2057724820688599,       !- Vertex 1 Xcoordinate
+    16.44836935909698,        !- Vertex 1 Ycoordinate
+    2.025,                    !- Vertex 1 Zcoordinate
+    0.2057724820688599,       !- Vertex 2 Xcoordinate
+    16.44836935909698,        !- Vertex 2 Ycoordinate
+    0.9750000000000001,       !- Vertex 2 Zcoordinate
+    0.0001029377,             !- Vertex 3 Xcoordinate
+    0.9452449703007009,       !- Vertex 3 Ycoordinate
+    0.9750000000000001,       !- Vertex 3 Zcoordinate
+    0.0001029377,             !- Vertex 4 Xcoordinate
+    0.9452449703007009,       !- Vertex 4 Ycoordinate
+    2.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0001 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 1 Wall 0001,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.03116181,               !- Vertex 1 Xcoordinate
+    0.9370169059603939,       !- Vertex 1 Ycoordinate
+    5.025,                    !- Vertex 1 Zcoordinate
+    0.03116181,               !- Vertex 2 Xcoordinate
+    0.9370169059603939,       !- Vertex 2 Ycoordinate
+    3.975,                    !- Vertex 2 Zcoordinate
+    62.292464923392686,       !- Vertex 3 Xcoordinate
+    0.0004687428,             !- Vertex 3 Ycoordinate
+    3.975,                    !- Vertex 3 Zcoordinate
+    62.292464923392686,       !- Vertex 4 Xcoordinate
+    0.0004687428,             !- Vertex 4 Ycoordinate
+    5.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0002 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 1 Wall 0002,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.32368205196765,        !- Vertex 1 Xcoordinate
+    0.007759951,              !- Vertex 1 Ycoordinate
+    5.025,                    !- Vertex 1 Zcoordinate
+    62.32368205196765,        !- Vertex 2 Xcoordinate
+    0.007759951,              !- Vertex 2 Ycoordinate
+    3.975,                    !- Vertex 2 Zcoordinate
+    62.4342018347226,         !- Vertex 3 Xcoordinate
+    15.512142746415453,       !- Vertex 3 Ycoordinate
+    3.975,                    !- Vertex 3 Zcoordinate
+    62.4342018347226,         !- Vertex 4 Xcoordinate
+    15.512142746415453,       !- Vertex 4 Ycoordinate
+    5.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0003 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 1 Wall 0003,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.403142959064105,       !- Vertex 1 Xcoordinate
+    15.52037081075576,        !- Vertex 1 Ycoordinate
+    5.025,                    !- Vertex 1 Zcoordinate
+    62.403142959064105,       !- Vertex 2 Xcoordinate
+    15.52037081075576,        !- Vertex 2 Ycoordinate
+    3.975,                    !- Vertex 2 Zcoordinate
+    0.2369896,                !- Vertex 3 Xcoordinate
+    16.455660567621468,       !- Vertex 3 Ycoordinate
+    3.975,                    !- Vertex 3 Zcoordinate
+    0.2369896,                !- Vertex 4 Xcoordinate
+    16.455660567621468,       !- Vertex 4 Ycoordinate
+    5.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 1 Wall 0004 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 1 Wall 0004,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.2057724820688599,       !- Vertex 1 Xcoordinate
+    16.44836935909698,        !- Vertex 1 Ycoordinate
+    5.025,                    !- Vertex 1 Zcoordinate
+    0.2057724820688599,       !- Vertex 2 Xcoordinate
+    16.44836935909698,        !- Vertex 2 Ycoordinate
+    3.975,                    !- Vertex 2 Zcoordinate
+    0.0001029377,             !- Vertex 3 Xcoordinate
+    0.9452449703007009,       !- Vertex 3 Ycoordinate
+    3.975,                    !- Vertex 3 Zcoordinate
+    0.0001029377,             !- Vertex 4 Xcoordinate
+    0.9452449703007009,       !- Vertex 4 Ycoordinate
+    5.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0001 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 2 Wall 0001,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.03116181,               !- Vertex 1 Xcoordinate
+    0.9370169059603939,       !- Vertex 1 Ycoordinate
+    8.025,                    !- Vertex 1 Zcoordinate
+    0.03116181,               !- Vertex 2 Xcoordinate
+    0.9370169059603939,       !- Vertex 2 Ycoordinate
+    6.975,                    !- Vertex 2 Zcoordinate
+    62.292464923392686,       !- Vertex 3 Xcoordinate
+    0.0004687428,             !- Vertex 3 Ycoordinate
+    6.975,                    !- Vertex 3 Zcoordinate
+    62.292464923392686,       !- Vertex 4 Xcoordinate
+    0.0004687428,             !- Vertex 4 Ycoordinate
+    8.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0002 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 2 Wall 0002,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.32368205196765,        !- Vertex 1 Xcoordinate
+    0.007759951,              !- Vertex 1 Ycoordinate
+    8.025,                    !- Vertex 1 Zcoordinate
+    62.32368205196765,        !- Vertex 2 Xcoordinate
+    0.007759951,              !- Vertex 2 Ycoordinate
+    6.975,                    !- Vertex 2 Zcoordinate
+    62.4342018347226,         !- Vertex 3 Xcoordinate
+    15.512142746415453,       !- Vertex 3 Ycoordinate
+    6.975,                    !- Vertex 3 Zcoordinate
+    62.4342018347226,         !- Vertex 4 Xcoordinate
+    15.512142746415453,       !- Vertex 4 Ycoordinate
+    8.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0003 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 2 Wall 0003,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.403142959064105,       !- Vertex 1 Xcoordinate
+    15.52037081075576,        !- Vertex 1 Ycoordinate
+    8.025,                    !- Vertex 1 Zcoordinate
+    62.403142959064105,       !- Vertex 2 Xcoordinate
+    15.52037081075576,        !- Vertex 2 Ycoordinate
+    6.975,                    !- Vertex 2 Zcoordinate
+    0.2369896,                !- Vertex 3 Xcoordinate
+    16.455660567621468,       !- Vertex 3 Ycoordinate
+    6.975,                    !- Vertex 3 Zcoordinate
+    0.2369896,                !- Vertex 4 Xcoordinate
+    16.455660567621468,       !- Vertex 4 Ycoordinate
+    8.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 2 Wall 0004 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 2 Wall 0004,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.2057724820688599,       !- Vertex 1 Xcoordinate
+    16.44836935909698,        !- Vertex 1 Ycoordinate
+    8.025,                    !- Vertex 1 Zcoordinate
+    0.2057724820688599,       !- Vertex 2 Xcoordinate
+    16.44836935909698,        !- Vertex 2 Ycoordinate
+    6.975,                    !- Vertex 2 Zcoordinate
+    0.0001029377,             !- Vertex 3 Xcoordinate
+    0.9452449703007009,       !- Vertex 3 Ycoordinate
+    6.975,                    !- Vertex 3 Zcoordinate
+    0.0001029377,             !- Vertex 4 Xcoordinate
+    0.9452449703007009,       !- Vertex 4 Ycoordinate
+    8.025;                    !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0001 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 3 Wall 0001,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.03116181,               !- Vertex 1 Xcoordinate
+    0.9370169059603939,       !- Vertex 1 Ycoordinate
+    11.025,                   !- Vertex 1 Zcoordinate
+    0.03116181,               !- Vertex 2 Xcoordinate
+    0.9370169059603939,       !- Vertex 2 Ycoordinate
+    9.975,                    !- Vertex 2 Zcoordinate
+    62.292464923392686,       !- Vertex 3 Xcoordinate
+    0.0004687428,             !- Vertex 3 Ycoordinate
+    9.975,                    !- Vertex 3 Zcoordinate
+    62.292464923392686,       !- Vertex 4 Xcoordinate
+    0.0004687428,             !- Vertex 4 Ycoordinate
+    11.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0002 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 3 Wall 0002,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.32368205196765,        !- Vertex 1 Xcoordinate
+    0.007759951,              !- Vertex 1 Ycoordinate
+    11.025,                   !- Vertex 1 Zcoordinate
+    62.32368205196765,        !- Vertex 2 Xcoordinate
+    0.007759951,              !- Vertex 2 Ycoordinate
+    9.975,                    !- Vertex 2 Zcoordinate
+    62.4342018347226,         !- Vertex 3 Xcoordinate
+    15.512142746415453,       !- Vertex 3 Ycoordinate
+    9.975,                    !- Vertex 3 Zcoordinate
+    62.4342018347226,         !- Vertex 4 Xcoordinate
+    15.512142746415453,       !- Vertex 4 Ycoordinate
+    11.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0003 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 3 Wall 0003,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.403142959064105,       !- Vertex 1 Xcoordinate
+    15.52037081075576,        !- Vertex 1 Ycoordinate
+    11.025,                   !- Vertex 1 Zcoordinate
+    62.403142959064105,       !- Vertex 2 Xcoordinate
+    15.52037081075576,        !- Vertex 2 Ycoordinate
+    9.975,                    !- Vertex 2 Zcoordinate
+    0.2369896,                !- Vertex 3 Xcoordinate
+    16.455660567621468,       !- Vertex 3 Ycoordinate
+    9.975,                    !- Vertex 3 Zcoordinate
+    0.2369896,                !- Vertex 4 Xcoordinate
+    16.455660567621468,       !- Vertex 4 Ycoordinate
+    11.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 3 Wall 0004 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 3 Wall 0004,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.2057724820688599,       !- Vertex 1 Xcoordinate
+    16.44836935909698,        !- Vertex 1 Ycoordinate
+    11.025,                   !- Vertex 1 Zcoordinate
+    0.2057724820688599,       !- Vertex 2 Xcoordinate
+    16.44836935909698,        !- Vertex 2 Ycoordinate
+    9.975,                    !- Vertex 2 Zcoordinate
+    0.0001029377,             !- Vertex 3 Xcoordinate
+    0.9452449703007009,       !- Vertex 3 Ycoordinate
+    9.975,                    !- Vertex 3 Zcoordinate
+    0.0001029377,             !- Vertex 4 Xcoordinate
+    0.9452449703007009,       !- Vertex 4 Ycoordinate
+    11.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0001 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 4 Wall 0001,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.03116181,               !- Vertex 1 Xcoordinate
+    0.9370169059603939,       !- Vertex 1 Ycoordinate
+    14.025,                   !- Vertex 1 Zcoordinate
+    0.03116181,               !- Vertex 2 Xcoordinate
+    0.9370169059603939,       !- Vertex 2 Ycoordinate
+    12.975,                   !- Vertex 2 Zcoordinate
+    62.292464923392686,       !- Vertex 3 Xcoordinate
+    0.0004687428,             !- Vertex 3 Ycoordinate
+    12.975,                   !- Vertex 3 Zcoordinate
+    62.292464923392686,       !- Vertex 4 Xcoordinate
+    0.0004687428,             !- Vertex 4 Ycoordinate
+    14.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0002 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 4 Wall 0002,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.32368205196765,        !- Vertex 1 Xcoordinate
+    0.007759951,              !- Vertex 1 Ycoordinate
+    14.025,                   !- Vertex 1 Zcoordinate
+    62.32368205196765,        !- Vertex 2 Xcoordinate
+    0.007759951,              !- Vertex 2 Ycoordinate
+    12.975,                   !- Vertex 2 Zcoordinate
+    62.4342018347226,         !- Vertex 3 Xcoordinate
+    15.512142746415453,       !- Vertex 3 Ycoordinate
+    12.975,                   !- Vertex 3 Zcoordinate
+    62.4342018347226,         !- Vertex 4 Xcoordinate
+    15.512142746415453,       !- Vertex 4 Ycoordinate
+    14.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0003 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 4 Wall 0003,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.403142959064105,       !- Vertex 1 Xcoordinate
+    15.52037081075576,        !- Vertex 1 Ycoordinate
+    14.025,                   !- Vertex 1 Zcoordinate
+    62.403142959064105,       !- Vertex 2 Xcoordinate
+    15.52037081075576,        !- Vertex 2 Ycoordinate
+    12.975,                   !- Vertex 2 Zcoordinate
+    0.2369896,                !- Vertex 3 Xcoordinate
+    16.455660567621468,       !- Vertex 3 Ycoordinate
+    12.975,                   !- Vertex 3 Zcoordinate
+    0.2369896,                !- Vertex 4 Xcoordinate
+    16.455660567621468,       !- Vertex 4 Ycoordinate
+    14.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 4 Wall 0004 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 4 Wall 0004,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.2057724820688599,       !- Vertex 1 Xcoordinate
+    16.44836935909698,        !- Vertex 1 Ycoordinate
+    14.025,                   !- Vertex 1 Zcoordinate
+    0.2057724820688599,       !- Vertex 2 Xcoordinate
+    16.44836935909698,        !- Vertex 2 Ycoordinate
+    12.975,                   !- Vertex 2 Zcoordinate
+    0.0001029377,             !- Vertex 3 Xcoordinate
+    0.9452449703007009,       !- Vertex 3 Ycoordinate
+    12.975,                   !- Vertex 3 Zcoordinate
+    0.0001029377,             !- Vertex 4 Xcoordinate
+    0.9452449703007009,       !- Vertex 4 Ycoordinate
+    14.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0001 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 5 Wall 0001,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.03116181,               !- Vertex 1 Xcoordinate
+    0.9370169059603939,       !- Vertex 1 Ycoordinate
+    17.025,                   !- Vertex 1 Zcoordinate
+    0.03116181,               !- Vertex 2 Xcoordinate
+    0.9370169059603939,       !- Vertex 2 Ycoordinate
+    15.975,                   !- Vertex 2 Zcoordinate
+    62.292464923392686,       !- Vertex 3 Xcoordinate
+    0.0004687428,             !- Vertex 3 Ycoordinate
+    15.975,                   !- Vertex 3 Zcoordinate
+    62.292464923392686,       !- Vertex 4 Xcoordinate
+    0.0004687428,             !- Vertex 4 Ycoordinate
+    17.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0002 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 5 Wall 0002,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.32368205196765,        !- Vertex 1 Xcoordinate
+    0.007759951,              !- Vertex 1 Ycoordinate
+    17.025,                   !- Vertex 1 Zcoordinate
+    62.32368205196765,        !- Vertex 2 Xcoordinate
+    0.007759951,              !- Vertex 2 Ycoordinate
+    15.975,                   !- Vertex 2 Zcoordinate
+    62.4342018347226,         !- Vertex 3 Xcoordinate
+    15.512142746415453,       !- Vertex 3 Ycoordinate
+    15.975,                   !- Vertex 3 Zcoordinate
+    62.4342018347226,         !- Vertex 4 Xcoordinate
+    15.512142746415453,       !- Vertex 4 Ycoordinate
+    17.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0003 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 5 Wall 0003,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    62.403142959064105,       !- Vertex 1 Xcoordinate
+    15.52037081075576,        !- Vertex 1 Ycoordinate
+    17.025,                   !- Vertex 1 Zcoordinate
+    62.403142959064105,       !- Vertex 2 Xcoordinate
+    15.52037081075576,        !- Vertex 2 Ycoordinate
+    15.975,                   !- Vertex 2 Zcoordinate
+    0.2369896,                !- Vertex 3 Xcoordinate
+    16.455660567621468,       !- Vertex 3 Ycoordinate
+    15.975,                   !- Vertex 3 Zcoordinate
+    0.2369896,                !- Vertex 4 Xcoordinate
+    16.455660567621468,       !- Vertex 4 Ycoordinate
+    17.025;                   !- Vertex 4 Zcoordinate
+
+FENESTRATIONSURFACE:DETAILED,
+    Block Poly_44_Commercial Storey 5 Wall 0004 window,    !- Name
+    Window,                   !- Surface Type
+    HSCWZ_Public&Industrial_1995_Win,    !- Construction Name
+    Block Poly_44_Commercial Storey 5 Wall 0004,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    autocalculate,            !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    1,                        !- Multiplier
+    autocalculate,            !- Number of Vertices
+    0.2057724820688599,       !- Vertex 1 Xcoordinate
+    16.44836935909698,        !- Vertex 1 Ycoordinate
+    17.025,                   !- Vertex 1 Zcoordinate
+    0.2057724820688599,       !- Vertex 2 Xcoordinate
+    16.44836935909698,        !- Vertex 2 Ycoordinate
+    15.975,                   !- Vertex 2 Zcoordinate
+    0.0001029377,             !- Vertex 3 Xcoordinate
+    0.9452449703007009,       !- Vertex 3 Ycoordinate
+    15.975,                   !- Vertex 3 Zcoordinate
+    0.0001029377,             !- Vertex 4 Xcoordinate
+    0.9452449703007009,       !- Vertex 4 Ycoordinate
+    17.025;                   !- Vertex 4 Zcoordinate
+
+PEOPLE,
+    People_Block Poly_44_Commercial Storey 0,    !- Name
+    Block Poly_44_Commercial Storey 0,    !- Zone or ZoneList or Space or SpaceList Name
+    People_Schedule,          !- Number of People Schedule Name
+    Area/Person,              !- Number of People Calculation Method
+    ,                         !- Number of People
+    ,                         !- People per Floor Area
+    3.5,                      !- Floor Area per Person
+    0.3,                      !- Fraction Radiant
+    autocalculate,            !- Sensible Heat Fraction
+    CN_GenericActivityLevel,    !- Activity Level Schedule Name
+    3.82e-08,                 !- Carbon Dioxide Generation Rate
+    No,                       !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,             !- Mean Radiant Temperature Calculation Type
+    ,                         !- Surface NameAngle Factor List Name
+    ,                         !- Work Efficiency Schedule Name
+    ClothingInsulationSchedule,    !- Clothing Insulation Calculation Method
+    ,                         !- Clothing Insulation Calculation Method Schedule Name
+    ,                         !- Clothing Insulation Schedule Name
+    ,                         !- Air Velocity Schedule Name
+    ,                         !- Thermal Comfort Model 1 Type
+    ,                         !- Thermal Comfort Model 2 Type
+    ,                         !- Thermal Comfort Model 3 Type
+    ,                         !- Thermal Comfort Model 4 Type
+    ,                         !- Thermal Comfort Model 5 Type
+    ,                         !- Thermal Comfort Model 6 Type
+    ,                         !- Thermal Comfort Model 7 Type
+    ,                         !- Ankle Level Air Velocity Schedule Name
+    15.56,                    !- Cold Stress Temperature Threshold
+    30;                       !- Heat Stress Temperature Threshold
+
+PEOPLE,
+    People_Block Poly_44_Commercial Storey 1,    !- Name
+    Block Poly_44_Commercial Storey 1,    !- Zone or ZoneList or Space or SpaceList Name
+    People_Schedule,          !- Number of People Schedule Name
+    Area/Person,              !- Number of People Calculation Method
+    ,                         !- Number of People
+    ,                         !- People per Floor Area
+    3.5,                      !- Floor Area per Person
+    0.3,                      !- Fraction Radiant
+    autocalculate,            !- Sensible Heat Fraction
+    CN_GenericActivityLevel,    !- Activity Level Schedule Name
+    3.82e-08,                 !- Carbon Dioxide Generation Rate
+    No,                       !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,             !- Mean Radiant Temperature Calculation Type
+    ,                         !- Surface NameAngle Factor List Name
+    ,                         !- Work Efficiency Schedule Name
+    ClothingInsulationSchedule,    !- Clothing Insulation Calculation Method
+    ,                         !- Clothing Insulation Calculation Method Schedule Name
+    ,                         !- Clothing Insulation Schedule Name
+    ,                         !- Air Velocity Schedule Name
+    ,                         !- Thermal Comfort Model 1 Type
+    ,                         !- Thermal Comfort Model 2 Type
+    ,                         !- Thermal Comfort Model 3 Type
+    ,                         !- Thermal Comfort Model 4 Type
+    ,                         !- Thermal Comfort Model 5 Type
+    ,                         !- Thermal Comfort Model 6 Type
+    ,                         !- Thermal Comfort Model 7 Type
+    ,                         !- Ankle Level Air Velocity Schedule Name
+    15.56,                    !- Cold Stress Temperature Threshold
+    30;                       !- Heat Stress Temperature Threshold
+
+PEOPLE,
+    People_Block Poly_44_Commercial Storey 2,    !- Name
+    Block Poly_44_Commercial Storey 2,    !- Zone or ZoneList or Space or SpaceList Name
+    People_Schedule,          !- Number of People Schedule Name
+    Area/Person,              !- Number of People Calculation Method
+    ,                         !- Number of People
+    ,                         !- People per Floor Area
+    3.5,                      !- Floor Area per Person
+    0.3,                      !- Fraction Radiant
+    autocalculate,            !- Sensible Heat Fraction
+    CN_GenericActivityLevel,    !- Activity Level Schedule Name
+    3.82e-08,                 !- Carbon Dioxide Generation Rate
+    No,                       !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,             !- Mean Radiant Temperature Calculation Type
+    ,                         !- Surface NameAngle Factor List Name
+    ,                         !- Work Efficiency Schedule Name
+    ClothingInsulationSchedule,    !- Clothing Insulation Calculation Method
+    ,                         !- Clothing Insulation Calculation Method Schedule Name
+    ,                         !- Clothing Insulation Schedule Name
+    ,                         !- Air Velocity Schedule Name
+    ,                         !- Thermal Comfort Model 1 Type
+    ,                         !- Thermal Comfort Model 2 Type
+    ,                         !- Thermal Comfort Model 3 Type
+    ,                         !- Thermal Comfort Model 4 Type
+    ,                         !- Thermal Comfort Model 5 Type
+    ,                         !- Thermal Comfort Model 6 Type
+    ,                         !- Thermal Comfort Model 7 Type
+    ,                         !- Ankle Level Air Velocity Schedule Name
+    15.56,                    !- Cold Stress Temperature Threshold
+    30;                       !- Heat Stress Temperature Threshold
+
+PEOPLE,
+    People_Block Poly_44_Commercial Storey 3,    !- Name
+    Block Poly_44_Commercial Storey 3,    !- Zone or ZoneList or Space or SpaceList Name
+    People_Schedule,          !- Number of People Schedule Name
+    Area/Person,              !- Number of People Calculation Method
+    ,                         !- Number of People
+    ,                         !- People per Floor Area
+    3.5,                      !- Floor Area per Person
+    0.3,                      !- Fraction Radiant
+    autocalculate,            !- Sensible Heat Fraction
+    CN_GenericActivityLevel,    !- Activity Level Schedule Name
+    3.82e-08,                 !- Carbon Dioxide Generation Rate
+    No,                       !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,             !- Mean Radiant Temperature Calculation Type
+    ,                         !- Surface NameAngle Factor List Name
+    ,                         !- Work Efficiency Schedule Name
+    ClothingInsulationSchedule,    !- Clothing Insulation Calculation Method
+    ,                         !- Clothing Insulation Calculation Method Schedule Name
+    ,                         !- Clothing Insulation Schedule Name
+    ,                         !- Air Velocity Schedule Name
+    ,                         !- Thermal Comfort Model 1 Type
+    ,                         !- Thermal Comfort Model 2 Type
+    ,                         !- Thermal Comfort Model 3 Type
+    ,                         !- Thermal Comfort Model 4 Type
+    ,                         !- Thermal Comfort Model 5 Type
+    ,                         !- Thermal Comfort Model 6 Type
+    ,                         !- Thermal Comfort Model 7 Type
+    ,                         !- Ankle Level Air Velocity Schedule Name
+    15.56,                    !- Cold Stress Temperature Threshold
+    30;                       !- Heat Stress Temperature Threshold
+
+PEOPLE,
+    People_Block Poly_44_Commercial Storey 4,    !- Name
+    Block Poly_44_Commercial Storey 4,    !- Zone or ZoneList or Space or SpaceList Name
+    People_Schedule,          !- Number of People Schedule Name
+    Area/Person,              !- Number of People Calculation Method
+    ,                         !- Number of People
+    ,                         !- People per Floor Area
+    3.5,                      !- Floor Area per Person
+    0.3,                      !- Fraction Radiant
+    autocalculate,            !- Sensible Heat Fraction
+    CN_GenericActivityLevel,    !- Activity Level Schedule Name
+    3.82e-08,                 !- Carbon Dioxide Generation Rate
+    No,                       !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,             !- Mean Radiant Temperature Calculation Type
+    ,                         !- Surface NameAngle Factor List Name
+    ,                         !- Work Efficiency Schedule Name
+    ClothingInsulationSchedule,    !- Clothing Insulation Calculation Method
+    ,                         !- Clothing Insulation Calculation Method Schedule Name
+    ,                         !- Clothing Insulation Schedule Name
+    ,                         !- Air Velocity Schedule Name
+    ,                         !- Thermal Comfort Model 1 Type
+    ,                         !- Thermal Comfort Model 2 Type
+    ,                         !- Thermal Comfort Model 3 Type
+    ,                         !- Thermal Comfort Model 4 Type
+    ,                         !- Thermal Comfort Model 5 Type
+    ,                         !- Thermal Comfort Model 6 Type
+    ,                         !- Thermal Comfort Model 7 Type
+    ,                         !- Ankle Level Air Velocity Schedule Name
+    15.56,                    !- Cold Stress Temperature Threshold
+    30;                       !- Heat Stress Temperature Threshold
+
+PEOPLE,
+    People_Block Poly_44_Commercial Storey 5,    !- Name
+    Block Poly_44_Commercial Storey 5,    !- Zone or ZoneList or Space or SpaceList Name
+    People_Schedule,          !- Number of People Schedule Name
+    Area/Person,              !- Number of People Calculation Method
+    ,                         !- Number of People
+    ,                         !- People per Floor Area
+    3.5,                      !- Floor Area per Person
+    0.3,                      !- Fraction Radiant
+    autocalculate,            !- Sensible Heat Fraction
+    CN_GenericActivityLevel,    !- Activity Level Schedule Name
+    3.82e-08,                 !- Carbon Dioxide Generation Rate
+    No,                       !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,             !- Mean Radiant Temperature Calculation Type
+    ,                         !- Surface NameAngle Factor List Name
+    ,                         !- Work Efficiency Schedule Name
+    ClothingInsulationSchedule,    !- Clothing Insulation Calculation Method
+    ,                         !- Clothing Insulation Calculation Method Schedule Name
+    ,                         !- Clothing Insulation Schedule Name
+    ,                         !- Air Velocity Schedule Name
+    ,                         !- Thermal Comfort Model 1 Type
+    ,                         !- Thermal Comfort Model 2 Type
+    ,                         !- Thermal Comfort Model 3 Type
+    ,                         !- Thermal Comfort Model 4 Type
+    ,                         !- Thermal Comfort Model 5 Type
+    ,                         !- Thermal Comfort Model 6 Type
+    ,                         !- Thermal Comfort Model 7 Type
+    ,                         !- Ankle Level Air Velocity Schedule Name
+    15.56,                    !- Cold Stress Temperature Threshold
+    30;                       !- Heat Stress Temperature Threshold
+
+LIGHTS,
+    Lights_Block Poly_44_Commercial Storey 0,    !- Name
+    Block Poly_44_Commercial Storey 0,    !- Zone or ZoneList or Space or SpaceList Name
+    Lights_Schedule,          !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Lighting Level
+    15,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Return Air Fraction
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Visible
+    1,                        !- Fraction Replaceable
+    General,                  !- EndUse Subcategory
+    No,                       !- Return Air Fraction Calculated from Plenum Temperature
+    0,                        !- Return Air Fraction Function of Plenum Temperature Coefficient 1
+    0;                        !- Return Air Fraction Function of Plenum Temperature Coefficient 2
+
+LIGHTS,
+    Lights_Block Poly_44_Commercial Storey 1,    !- Name
+    Block Poly_44_Commercial Storey 1,    !- Zone or ZoneList or Space or SpaceList Name
+    Lights_Schedule,          !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Lighting Level
+    15,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Return Air Fraction
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Visible
+    1,                        !- Fraction Replaceable
+    General,                  !- EndUse Subcategory
+    No,                       !- Return Air Fraction Calculated from Plenum Temperature
+    0,                        !- Return Air Fraction Function of Plenum Temperature Coefficient 1
+    0;                        !- Return Air Fraction Function of Plenum Temperature Coefficient 2
+
+LIGHTS,
+    Lights_Block Poly_44_Commercial Storey 2,    !- Name
+    Block Poly_44_Commercial Storey 2,    !- Zone or ZoneList or Space or SpaceList Name
+    Lights_Schedule,          !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Lighting Level
+    15,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Return Air Fraction
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Visible
+    1,                        !- Fraction Replaceable
+    General,                  !- EndUse Subcategory
+    No,                       !- Return Air Fraction Calculated from Plenum Temperature
+    0,                        !- Return Air Fraction Function of Plenum Temperature Coefficient 1
+    0;                        !- Return Air Fraction Function of Plenum Temperature Coefficient 2
+
+LIGHTS,
+    Lights_Block Poly_44_Commercial Storey 3,    !- Name
+    Block Poly_44_Commercial Storey 3,    !- Zone or ZoneList or Space or SpaceList Name
+    Lights_Schedule,          !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Lighting Level
+    15,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Return Air Fraction
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Visible
+    1,                        !- Fraction Replaceable
+    General,                  !- EndUse Subcategory
+    No,                       !- Return Air Fraction Calculated from Plenum Temperature
+    0,                        !- Return Air Fraction Function of Plenum Temperature Coefficient 1
+    0;                        !- Return Air Fraction Function of Plenum Temperature Coefficient 2
+
+LIGHTS,
+    Lights_Block Poly_44_Commercial Storey 4,    !- Name
+    Block Poly_44_Commercial Storey 4,    !- Zone or ZoneList or Space or SpaceList Name
+    Lights_Schedule,          !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Lighting Level
+    15,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Return Air Fraction
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Visible
+    1,                        !- Fraction Replaceable
+    General,                  !- EndUse Subcategory
+    No,                       !- Return Air Fraction Calculated from Plenum Temperature
+    0,                        !- Return Air Fraction Function of Plenum Temperature Coefficient 1
+    0;                        !- Return Air Fraction Function of Plenum Temperature Coefficient 2
+
+LIGHTS,
+    Lights_Block Poly_44_Commercial Storey 5,    !- Name
+    Block Poly_44_Commercial Storey 5,    !- Zone or ZoneList or Space or SpaceList Name
+    Lights_Schedule,          !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Lighting Level
+    15,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Return Air Fraction
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Visible
+    1,                        !- Fraction Replaceable
+    General,                  !- EndUse Subcategory
+    No,                       !- Return Air Fraction Calculated from Plenum Temperature
+    0,                        !- Return Air Fraction Function of Plenum Temperature Coefficient 1
+    0;                        !- Return Air Fraction Function of Plenum Temperature Coefficient 2
+
+ELECTRICEQUIPMENT,
+    ElectricEquipment_Block Poly_44_Commercial Storey 0,    !- Name
+    Block Poly_44_Commercial Storey 0,    !- Zone or ZoneList or Space or SpaceList Name
+    ElectricEquipment_Schedule,    !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Design Level
+    13,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Fraction Latent
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Lost
+    General;                  !- EndUse Subcategory
+
+ELECTRICEQUIPMENT,
+    ElectricEquipment_Block Poly_44_Commercial Storey 1,    !- Name
+    Block Poly_44_Commercial Storey 1,    !- Zone or ZoneList or Space or SpaceList Name
+    ElectricEquipment_Schedule,    !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Design Level
+    13,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Fraction Latent
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Lost
+    General;                  !- EndUse Subcategory
+
+ELECTRICEQUIPMENT,
+    ElectricEquipment_Block Poly_44_Commercial Storey 2,    !- Name
+    Block Poly_44_Commercial Storey 2,    !- Zone or ZoneList or Space or SpaceList Name
+    ElectricEquipment_Schedule,    !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Design Level
+    13,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Fraction Latent
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Lost
+    General;                  !- EndUse Subcategory
+
+ELECTRICEQUIPMENT,
+    ElectricEquipment_Block Poly_44_Commercial Storey 3,    !- Name
+    Block Poly_44_Commercial Storey 3,    !- Zone or ZoneList or Space or SpaceList Name
+    ElectricEquipment_Schedule,    !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Design Level
+    13,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Fraction Latent
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Lost
+    General;                  !- EndUse Subcategory
+
+ELECTRICEQUIPMENT,
+    ElectricEquipment_Block Poly_44_Commercial Storey 4,    !- Name
+    Block Poly_44_Commercial Storey 4,    !- Zone or ZoneList or Space or SpaceList Name
+    ElectricEquipment_Schedule,    !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Design Level
+    13,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Fraction Latent
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Lost
+    General;                  !- EndUse Subcategory
+
+ELECTRICEQUIPMENT,
+    ElectricEquipment_Block Poly_44_Commercial Storey 5,    !- Name
+    Block Poly_44_Commercial Storey 5,    !- Zone or ZoneList or Space or SpaceList Name
+    ElectricEquipment_Schedule,    !- Schedule Name
+    Watts/Area,               !- Design Level Calculation Method
+    ,                         !- Design Level
+    13,                       !- Watts per Zone Floor Area
+    ,                         !- Watts per Person
+    0,                        !- Fraction Latent
+    0,                        !- Fraction Radiant
+    0,                        !- Fraction Lost
+    General;                  !- EndUse Subcategory
+
+ZONEINFILTRATION:DESIGNFLOWRATE,
+    Infil 1,                  !- Name
+    Block Poly_44_Commercial Storey 0,    !- Zone or ZoneList or Space or SpaceList Name
+    AirEx_ConditionedTime_Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    1,                        !- Air Changes per Hour
+    1,                        !- Constant Term Coefficient
+    0,                        !- Temperature Term Coefficient
+    0,                        !- Velocity Term Coefficient
+    0;                        !- Velocity Squared Term Coefficient
+
+ZONEINFILTRATION:DESIGNFLOWRATE,
+    Infil 2,                  !- Name
+    Block Poly_44_Commercial Storey 1,    !- Zone or ZoneList or Space or SpaceList Name
+    AirEx_ConditionedTime_Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    1,                        !- Air Changes per Hour
+    1,                        !- Constant Term Coefficient
+    0,                        !- Temperature Term Coefficient
+    0,                        !- Velocity Term Coefficient
+    0;                        !- Velocity Squared Term Coefficient
+
+ZONEINFILTRATION:DESIGNFLOWRATE,
+    Infil 3,                  !- Name
+    Block Poly_44_Commercial Storey 2,    !- Zone or ZoneList or Space or SpaceList Name
+    AirEx_ConditionedTime_Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    1,                        !- Air Changes per Hour
+    1,                        !- Constant Term Coefficient
+    0,                        !- Temperature Term Coefficient
+    0,                        !- Velocity Term Coefficient
+    0;                        !- Velocity Squared Term Coefficient
+
+ZONEINFILTRATION:DESIGNFLOWRATE,
+    Infil 4,                  !- Name
+    Block Poly_44_Commercial Storey 3,    !- Zone or ZoneList or Space or SpaceList Name
+    AirEx_ConditionedTime_Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    1,                        !- Air Changes per Hour
+    1,                        !- Constant Term Coefficient
+    0,                        !- Temperature Term Coefficient
+    0,                        !- Velocity Term Coefficient
+    0;                        !- Velocity Squared Term Coefficient
+
+ZONEINFILTRATION:DESIGNFLOWRATE,
+    Infil 5,                  !- Name
+    Block Poly_44_Commercial Storey 4,    !- Zone or ZoneList or Space or SpaceList Name
+    AirEx_ConditionedTime_Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    1,                        !- Air Changes per Hour
+    1,                        !- Constant Term Coefficient
+    0,                        !- Temperature Term Coefficient
+    0,                        !- Velocity Term Coefficient
+    0;                        !- Velocity Squared Term Coefficient
+
+ZONEINFILTRATION:DESIGNFLOWRATE,
+    Infil 6,                  !- Name
+    Block Poly_44_Commercial Storey 5,    !- Zone or ZoneList or Space or SpaceList Name
+    AirEx_ConditionedTime_Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    1,                        !- Air Changes per Hour
+    1,                        !- Constant Term Coefficient
+    0,                        !- Temperature Term Coefficient
+    0,                        !- Velocity Term Coefficient
+    0;                        !- Velocity Squared Term Coefficient
+
+HVACTEMPLATE:THERMOSTAT,
+    HVACTemp,                 !- Name
+    Heating_SP_Schedule,      !- Heating Setpoint Schedule Name
+    ,                         !- Constant Heating Setpoint
+    Cooling_SP_Schedule;      !- Cooling Setpoint Schedule Name
+
+HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM,
+    Block Poly_44_Commercial Storey 0,    !- Zone Name
+    HVACTemp,                 !- Template Thermostat Name
+    HVAC_ConditionedTime_Schedule,    !- System Availability Schedule Name
+    50,                       !- Maximum Heating Supply Air Temperature
+    13,                       !- Minimum Cooling Supply Air Temperature
+    0.0156,                   !- Maximum Heating Supply Air Humidity Ratio
+    0.0077,                   !- Minimum Cooling Supply Air Humidity Ratio
+    NoLimit,                  !- Heating Limit
+    ,                         !- Maximum Heating Air Flow Rate
+    ,                         !- Maximum Sensible Heating Capacity
+    NoLimit,                  !- Cooling Limit
+    ,                         !- Maximum Cooling Air Flow Rate
+    ,                         !- Maximum Total Cooling Capacity
+    Heating_Period_Schedule,    !- Heating Availability Schedule Name
+    Cooling_Period_Schedule,    !- Cooling Availability Schedule Name
+    ConstantSensibleHeatRatio,    !- Dehumidification Control Type
+    0.7,                      !- Cooling Sensible Heat Ratio
+    60,                       !- Dehumidification Setpoint
+    None,                     !- Humidification Control Type
+    30,                       !- Humidification Setpoint
+    None,                     !- Outdoor Air Method
+    0.00944,                  !- Outdoor Air Flow Rate per Person
+    0,                        !- Outdoor Air Flow Rate per Zone Floor Area
+    0,                        !- Outdoor Air Flow Rate per Zone
+    ,                         !- Design Specification Outdoor Air Object Name
+    None,                     !- Demand Controlled Ventilation Type
+    NoEconomizer,             !- Outdoor Air Economizer Type
+    None,                     !- Heat Recovery Type
+    0.7,                      !- Sensible Heat Recovery Effectiveness
+    0.65;                     !- Latent Heat Recovery Effectiveness
+
+HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM,
+    Block Poly_44_Commercial Storey 1,    !- Zone Name
+    HVACTemp,                 !- Template Thermostat Name
+    HVAC_ConditionedTime_Schedule,    !- System Availability Schedule Name
+    50,                       !- Maximum Heating Supply Air Temperature
+    13,                       !- Minimum Cooling Supply Air Temperature
+    0.0156,                   !- Maximum Heating Supply Air Humidity Ratio
+    0.0077,                   !- Minimum Cooling Supply Air Humidity Ratio
+    NoLimit,                  !- Heating Limit
+    ,                         !- Maximum Heating Air Flow Rate
+    ,                         !- Maximum Sensible Heating Capacity
+    NoLimit,                  !- Cooling Limit
+    ,                         !- Maximum Cooling Air Flow Rate
+    ,                         !- Maximum Total Cooling Capacity
+    Heating_Period_Schedule,    !- Heating Availability Schedule Name
+    Cooling_Period_Schedule,    !- Cooling Availability Schedule Name
+    ConstantSensibleHeatRatio,    !- Dehumidification Control Type
+    0.7,                      !- Cooling Sensible Heat Ratio
+    60,                       !- Dehumidification Setpoint
+    None,                     !- Humidification Control Type
+    30,                       !- Humidification Setpoint
+    None,                     !- Outdoor Air Method
+    0.00944,                  !- Outdoor Air Flow Rate per Person
+    0,                        !- Outdoor Air Flow Rate per Zone Floor Area
+    0,                        !- Outdoor Air Flow Rate per Zone
+    ,                         !- Design Specification Outdoor Air Object Name
+    None,                     !- Demand Controlled Ventilation Type
+    NoEconomizer,             !- Outdoor Air Economizer Type
+    None,                     !- Heat Recovery Type
+    0.7,                      !- Sensible Heat Recovery Effectiveness
+    0.65;                     !- Latent Heat Recovery Effectiveness
+
+HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM,
+    Block Poly_44_Commercial Storey 2,    !- Zone Name
+    HVACTemp,                 !- Template Thermostat Name
+    HVAC_ConditionedTime_Schedule,    !- System Availability Schedule Name
+    50,                       !- Maximum Heating Supply Air Temperature
+    13,                       !- Minimum Cooling Supply Air Temperature
+    0.0156,                   !- Maximum Heating Supply Air Humidity Ratio
+    0.0077,                   !- Minimum Cooling Supply Air Humidity Ratio
+    NoLimit,                  !- Heating Limit
+    ,                         !- Maximum Heating Air Flow Rate
+    ,                         !- Maximum Sensible Heating Capacity
+    NoLimit,                  !- Cooling Limit
+    ,                         !- Maximum Cooling Air Flow Rate
+    ,                         !- Maximum Total Cooling Capacity
+    Heating_Period_Schedule,    !- Heating Availability Schedule Name
+    Cooling_Period_Schedule,    !- Cooling Availability Schedule Name
+    ConstantSensibleHeatRatio,    !- Dehumidification Control Type
+    0.7,                      !- Cooling Sensible Heat Ratio
+    60,                       !- Dehumidification Setpoint
+    None,                     !- Humidification Control Type
+    30,                       !- Humidification Setpoint
+    None,                     !- Outdoor Air Method
+    0.00944,                  !- Outdoor Air Flow Rate per Person
+    0,                        !- Outdoor Air Flow Rate per Zone Floor Area
+    0,                        !- Outdoor Air Flow Rate per Zone
+    ,                         !- Design Specification Outdoor Air Object Name
+    None,                     !- Demand Controlled Ventilation Type
+    NoEconomizer,             !- Outdoor Air Economizer Type
+    None,                     !- Heat Recovery Type
+    0.7,                      !- Sensible Heat Recovery Effectiveness
+    0.65;                     !- Latent Heat Recovery Effectiveness
+
+HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM,
+    Block Poly_44_Commercial Storey 3,    !- Zone Name
+    HVACTemp,                 !- Template Thermostat Name
+    HVAC_ConditionedTime_Schedule,    !- System Availability Schedule Name
+    50,                       !- Maximum Heating Supply Air Temperature
+    13,                       !- Minimum Cooling Supply Air Temperature
+    0.0156,                   !- Maximum Heating Supply Air Humidity Ratio
+    0.0077,                   !- Minimum Cooling Supply Air Humidity Ratio
+    NoLimit,                  !- Heating Limit
+    ,                         !- Maximum Heating Air Flow Rate
+    ,                         !- Maximum Sensible Heating Capacity
+    NoLimit,                  !- Cooling Limit
+    ,                         !- Maximum Cooling Air Flow Rate
+    ,                         !- Maximum Total Cooling Capacity
+    Heating_Period_Schedule,    !- Heating Availability Schedule Name
+    Cooling_Period_Schedule,    !- Cooling Availability Schedule Name
+    ConstantSensibleHeatRatio,    !- Dehumidification Control Type
+    0.7,                      !- Cooling Sensible Heat Ratio
+    60,                       !- Dehumidification Setpoint
+    None,                     !- Humidification Control Type
+    30,                       !- Humidification Setpoint
+    None,                     !- Outdoor Air Method
+    0.00944,                  !- Outdoor Air Flow Rate per Person
+    0,                        !- Outdoor Air Flow Rate per Zone Floor Area
+    0,                        !- Outdoor Air Flow Rate per Zone
+    ,                         !- Design Specification Outdoor Air Object Name
+    None,                     !- Demand Controlled Ventilation Type
+    NoEconomizer,             !- Outdoor Air Economizer Type
+    None,                     !- Heat Recovery Type
+    0.7,                      !- Sensible Heat Recovery Effectiveness
+    0.65;                     !- Latent Heat Recovery Effectiveness
+
+HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM,
+    Block Poly_44_Commercial Storey 4,    !- Zone Name
+    HVACTemp,                 !- Template Thermostat Name
+    HVAC_ConditionedTime_Schedule,    !- System Availability Schedule Name
+    50,                       !- Maximum Heating Supply Air Temperature
+    13,                       !- Minimum Cooling Supply Air Temperature
+    0.0156,                   !- Maximum Heating Supply Air Humidity Ratio
+    0.0077,                   !- Minimum Cooling Supply Air Humidity Ratio
+    NoLimit,                  !- Heating Limit
+    ,                         !- Maximum Heating Air Flow Rate
+    ,                         !- Maximum Sensible Heating Capacity
+    NoLimit,                  !- Cooling Limit
+    ,                         !- Maximum Cooling Air Flow Rate
+    ,                         !- Maximum Total Cooling Capacity
+    Heating_Period_Schedule,    !- Heating Availability Schedule Name
+    Cooling_Period_Schedule,    !- Cooling Availability Schedule Name
+    ConstantSensibleHeatRatio,    !- Dehumidification Control Type
+    0.7,                      !- Cooling Sensible Heat Ratio
+    60,                       !- Dehumidification Setpoint
+    None,                     !- Humidification Control Type
+    30,                       !- Humidification Setpoint
+    None,                     !- Outdoor Air Method
+    0.00944,                  !- Outdoor Air Flow Rate per Person
+    0,                        !- Outdoor Air Flow Rate per Zone Floor Area
+    0,                        !- Outdoor Air Flow Rate per Zone
+    ,                         !- Design Specification Outdoor Air Object Name
+    None,                     !- Demand Controlled Ventilation Type
+    NoEconomizer,             !- Outdoor Air Economizer Type
+    None,                     !- Heat Recovery Type
+    0.7,                      !- Sensible Heat Recovery Effectiveness
+    0.65;                     !- Latent Heat Recovery Effectiveness
+
+HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM,
+    Block Poly_44_Commercial Storey 5,    !- Zone Name
+    HVACTemp,                 !- Template Thermostat Name
+    HVAC_ConditionedTime_Schedule,    !- System Availability Schedule Name
+    50,                       !- Maximum Heating Supply Air Temperature
+    13,                       !- Minimum Cooling Supply Air Temperature
+    0.0156,                   !- Maximum Heating Supply Air Humidity Ratio
+    0.0077,                   !- Minimum Cooling Supply Air Humidity Ratio
+    NoLimit,                  !- Heating Limit
+    ,                         !- Maximum Heating Air Flow Rate
+    ,                         !- Maximum Sensible Heating Capacity
+    NoLimit,                  !- Cooling Limit
+    ,                         !- Maximum Cooling Air Flow Rate
+    ,                         !- Maximum Total Cooling Capacity
+    Heating_Period_Schedule,    !- Heating Availability Schedule Name
+    Cooling_Period_Schedule,    !- Cooling Availability Schedule Name
+    ConstantSensibleHeatRatio,    !- Dehumidification Control Type
+    0.7,                      !- Cooling Sensible Heat Ratio
+    60,                       !- Dehumidification Setpoint
+    None,                     !- Humidification Control Type
+    30,                       !- Humidification Setpoint
+    None,                     !- Outdoor Air Method
+    0.00944,                  !- Outdoor Air Flow Rate per Person
+    0,                        !- Outdoor Air Flow Rate per Zone Floor Area
+    0,                        !- Outdoor Air Flow Rate per Zone
+    ,                         !- Design Specification Outdoor Air Object Name
+    None,                     !- Demand Controlled Ventilation Type
+    NoEconomizer,             !- Outdoor Air Economizer Type
+    None,                     !- Heat Recovery Type
+    0.7,                      !- Sensible Heat Recovery Effectiveness
+    0.65;                     !- Latent Heat Recovery Effectiveness
+
+OUTPUT:VARIABLEDICTIONARY,
+    regular,                  !- Key Field
+    Unsorted;                 !- Sort Option
+
+OUTPUT:CONSTRUCTIONS,
+    Constructions,            !- Details Type 1
+    Constructions;            !- Details Type 2
+
+OUTPUT:TABLE:SUMMARYREPORTS,
+    AllSummary;               !- Report 1 Name
+
+OUTPUTCONTROL:TABLE:STYLE,
+    Comma,                    !- Column Separator
+    JtoKWH;                   !- Unit Conversion
+
+OUTPUT:VARIABLE,
+    *,                        !- Key Value
+    Zone Ideal Loads Supply Air Total Heating Rate,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:VARIABLE,
+    *,                        !- Key Value
+    Zone Ideal Loads Supply Air Total Cooling Rate,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:VARIABLE,
+    *,                        !- Key Value
+    Zone Ideal Loads Zone Total Heating Rate,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:VARIABLE,
+    *,                        !- Key Value
+    Zone Ideal Loads Zone Total Cooling Rate,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:VARIABLE,
+    *,                        !- Key Value
+    Zone Air Temperature,     !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:METER:METERFILEONLY,
+    DistrictCooling:Facility,    !- Key Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:METER:METERFILEONLY,
+    DistrictHeatingWater:Facility,    !- Key Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:METER:METERFILEONLY,
+    Electricity:Facility,     !- Key Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:METER:METERFILEONLY,
+    Electricity:Building,     !- Key Name
+    Hourly;                   !- Reporting Frequency
+
+OUTPUT:SQLITE,
+    SimpleAndTabular,         !- Option Type
+    UseOutputControlTableStyle;    !- Unit Conversion for Tabular Data
