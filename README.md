@@ -8,7 +8,12 @@ Shanghai prototype building energy modeling materials for peer review of (submit
 
 ## Contents
 
-This release covers **Shanghai only**: 113 simulation-ready IDFs, weather files, sample GIS, parameter workbooks, and `1_idf_epw_batch_runner.py`. The bundled IDFs are ready to simulate; `backup_idf_batch_processor.py` is optional and not required.
+This release covers **Shanghai only**: 113 simulation-ready IDFs, weather files, sample GIS, parameter workbooks, and `1_idf_epw_batch_runner.py`.
+
+| Script | Role |
+|--------|------|
+| `1_idf_epw_batch_runner.py` | Match EPW to ready IDFs and run EnergyPlus |
+| `backup_idf_batch_processor.py` | Fill in or repair **incomplete or deficient IDFs** (schedules, loads, HVAC, insulation, windows from `input/Setting/`). Not needed for the bundled ready IDFs. |
 
 ```
 ready_idf/shang4hai3shi4/  +  input/EPW/Shang4hai3shi4/
@@ -48,18 +53,9 @@ The batch script defaults to `Shanghai_2020.epw`. To use a scenario file, set `E
 
 Dependencies: `pip install eppy pandas openpyxl`, plus **EnergyPlus 23.1** installed locally.
 
-All data paths in the script are **relative to the repository root**. Set `ENERGYPLUS_DIR` or `IDD_FILE` to your local EnergyPlus install before running.
+All data paths in the script are **relative to the repository root**. Set `ENERGYPLUS_DIR` or `IDD_FILE` to your local EnergyPlus install, then run `1_idf_epw_batch_runner.py`. Outputs go to `result/shang4hai3shi4/`; default weather is `Shanghai_2020.epw`.
 
-Preview EPW–IDF matching without simulating:
-
-```powershell
-$env:CHECK_ONLY = "true"
-py 1_idf_epw_batch_runner.py
-```
-
-Writes `result/reports/epw_idf_match_plan_*.xlsx`. Default match: `ready_idf/shang4hai3shi4/` → `Shanghai_2020.epw`.
-
-Key environment variables: `IDF_ROOT`, `EPW_DIR`, `EPW_STEM`, `OUT_ROOT`, `NUM_CPUS`, `CHECK_ONLY`.
+Key environment variables: `IDF_ROOT`, `EPW_DIR`, `EPW_STEM`, `OUT_ROOT`, `NUM_CPUS`.
 
 ## Legal notice
 
